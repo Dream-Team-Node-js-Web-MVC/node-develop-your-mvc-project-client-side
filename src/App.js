@@ -1,12 +1,13 @@
 import React from "react";
-import Products from "./components/Products/Products";
+
+import { Products, Navbar } from "./components";
 
 const App = () => {
   return (
-    <>
-      <div>Beer Kingdom</div>
+    <div>
+      <Navbar />
       <Products />
-    </>
+    </div>
   );
 };
 
