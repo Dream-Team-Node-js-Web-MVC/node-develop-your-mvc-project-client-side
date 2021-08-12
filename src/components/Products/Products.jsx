@@ -3,6 +3,7 @@ import {Grid} from '@material-ui/core';
 
 import Product from './Product/Product';
 import useStyles from './styles'
+import Navbar from '../Navbar/Navbar';
 
 const products = [
     {id: 1,name:'Alhambra',description:'Spanish Beer',price:'€1,00',image:'https://www.loscervecistas.es/wp-content/uploads/2016/09/verde-detalle.png'  },
@@ -18,16 +19,19 @@ const products = [
 const Products = () => {
     const classes = useStyles();
     return (
-<main className={classes.content}>
-    <div className={classes.toolbar}/>
-        <Grid container justify="center" spacing={4}>
-            {products.map((product) => (
-                <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                    <Product product={product} />
-                    </Grid>
-            ))}
-        </Grid>
-    </main>
+        <>
+        <Navbar />
+        <main className={classes.content}>
+        <div className={classes.toolbar}/>
+            <Grid container justify="center" spacing={4}>
+                {products.map((product) => (
+                    <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+                        <Product product={product} />
+                        </Grid>
+                ))}
+            </Grid>
+        </main>
+        </>
     );
     
 }
