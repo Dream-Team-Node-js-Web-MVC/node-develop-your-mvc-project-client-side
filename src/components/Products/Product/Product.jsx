@@ -6,30 +6,34 @@ import useStyles from './styles'
 const Product = ({product}) => {
     const classes = useStyles();
     return (
-        <div>
-            <Card className={classes.root} >
-            <CardMedia className={classes.media} image={product.image} title={product.name} />
+    <div>
+        <Card className={classes.root} >
             <CardContent >
-                <div className={classes.cardContent}>
-                   <Typography variant="h6" gutterBottom>
+            <div className={classes.cardContentTop}>
+                    <Typography className={classes.name} variant="h6" gutterBottom>
                        {product.name}
-                       </Typography> 
-                    <Typography variant="h5"  >
-                       Price:{product.price}
                     </Typography> 
-                       
+                    <CardMedia className={classes.media} image={product.image} title={product.name} />
+                
                 </div>
-                <Typography variant="body2" color="textSecondary">
+                
+                <div className={classes.cardContentBottom}>
+                    <Typography variant="body2" color="textSecondary">
                    {product.description}
-                </Typography> 
+                    </Typography> 
+                    
+                    <CardActions disableSpacing className={classes.cardActions}>
+                        <Typography  variant="h5"  >
+                            Price:{product.price}
+                        </Typography> 
+                        <IconButton aria-label="Add to Cart">
+                        <AddShoppingCart />
+                        </IconButton>
+                    </CardActions>
+                </div>
             </CardContent>
-            <CardActions disableSpacing className={classes.cardActions}>
-                <IconButton aria-label="Add to Cart">
-                    <AddShoppingCart />
-                </IconButton>
-            </CardActions>
-            </Card>
-        </div>
+         </Card>  
+    </div>
     )
 }
 
