@@ -1,13 +1,15 @@
 import React from "react";
-
-import { Products, Navbar } from "./components";
+import { Login, Products } from "./components";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; 
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <Products />
-    </div>
+    <Router>
+      <div>
+        <Route path='/Login' component={Login} />
+        <Route path='/Products' component={Products} />
+      </div>
+    </Router>
   );
 };
 
