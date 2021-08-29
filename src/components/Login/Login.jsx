@@ -1,4 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Redirect } from "react-router-dom";
+
+import { syncUserData } from "../../utils/authRequest"
+import {
+  signInWithGoogle,
+  signInWithEmailAndPassword,
+} from "../../services/auth";
+
+import { GoogleLoginButton } from 'react-social-login-buttons'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,14 +20,57 @@ import Typography from '@material-ui/core/Typography';
 import logo from "../../assets/logo.jpeg";
 import beerImage from "../../assets/beer-duo.png";
 import useStyles from './styles' 
+import "./Login.css"
 
 function Login() {
   const classes = useStyles();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  async function handleLoginWithGoogle(e) {
+    // e.preventDefault();
+    console.log("hello");
+    setLoading(true);
+    setLoggedIn(false);
+
+    try {
+      await signInWithGoogle();
+      await syncUserData();
+      setLoggedIn(true);
+    } catch (error) {
+      setLoginError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+ async function handleSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setLoading(true);
+    setLoggedIn(false);
+
+    try {
+      await signInWithEmailAndPassword(email, password);
+      await syncUserData();
+      setLoggedIn(true);
+    } catch (error) {
+      setLoginError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+    if (loggedIn) {
+    return <Redirect to="/" />;
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid container justify = "center" xs={false} sm={4} md={6} className={classes.left_section}>
+      <Grid container justifyContent = "center" xs={false} sm={4} md={6} className={classes.left_section}>
         <Typography component="h2" variant="h2" className={classes.primary_text} >
             Beer! The cause of and the solution to all of life’s problems
         </Typography>
@@ -30,7 +82,7 @@ function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -41,6 +93,11 @@ function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={e => {
+                e.preventDefault();
+                setEmail(e.target.value);
+              }}
             />
             <TextField
               variant="outlined"
@@ -52,6 +109,8 @@ function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={e=> setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -66,6 +125,7 @@ function Login() {
             >
               Sign In
             </Button>
+            <GoogleLoginButton className="googleButton" onClick={handleLoginWithGoogle}></GoogleLoginButton>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
