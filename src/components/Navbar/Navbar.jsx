@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthContext from "../../context/AuthContext"
+import { signOut } from "../../services/auth";
+
 import { AppBar,Toolbar,IconButton,Badge,MenuItem,Menu,Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import { ShoppingCart } from '@material-ui/icons';
 import { classExpression } from '@babel/types';
 import logo from '../../assets/logo.jpeg';
@@ -8,6 +12,10 @@ import useStyles from './styles'
 
 const Navbar = () => {
     const classes = useStyles();
+    const currentUser = useContext(AuthContext)
+    async function handleSignOut() {
+    await signOut();
+  }
     return (
         <>
             <AppBar position="fixed" className={classExpression.appbar} color="inherit">
@@ -16,6 +24,9 @@ const Navbar = () => {
                         <img src={logo} alt="Beer Kingdom" height="25px" className={classes.image}/>
                     </Typography>
                     <div className={classes.grow} />
+    {currentUser && (
+    <div>Hello, {currentUser.email}
+    <Button color="secondary" onClick={handleSignOut}>Log out</Button></div>)}
                     <div className={classes.button}>
                         <IconButton aria-label="Show cart items" color="inherit"/>
                         <Badge badgeContent={2} color="secondary">
