@@ -36,13 +36,13 @@ const Product = (product) => {
                 </div>
                 
                 <div className={classes.cardContentBottom}>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary" className={classes.textSize}>
                    {product.product.description}
                     </Typography> 
                     
                     <CardActions disableSpacing className={classes.cardActions}>
                         <Typography  variant="h5"  >
-                            Price:{product.product.price[0].packPrice}
+                            Price:{product.product.price[0].packPrice}€
                         </Typography> 
                         <IconButton aria-label="Add to Cart" onClick={addToCart}>
                         <AddShoppingCart />

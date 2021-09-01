@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, LoginSignUp, Register } from "./pages";
+import { Home, LoginSignUp, Register, WorkerForm } from "./pages";
 
 import { Cart } from "./components";
 
 import AuthContext from "./context/AuthContext";
 import { auth } from "./services/auth";
+
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   // console.log(auth.currentUser.email);
@@ -42,6 +43,11 @@ const App = () => {
           path="/cart"
           exact
           render={(routeProps) => <Cart {...routeProps} />}
+        />
+        <Route
+          path="/newworker"
+          exact
+          render={(routeProps) => <WorkerForm {...routeProps} />}
         />
         <Route path="/" render={(routeProps) => <Home {...routeProps} />} />
       </Switch>
