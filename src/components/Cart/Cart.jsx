@@ -17,9 +17,9 @@ function Cart() {
   const [cart, setCart] = useState([]);
   const localCart = JSON.parse(localStorage.getItem("cart"));
 
-  useEffect(() => {
-    getCartProducts();
-  }, []);
+  //   useEffect(() => {
+  //     getCartProducts();
+  //   }, []);
 
   const getCartProducts = async () => {
     setCart(await getCart(localCart));
@@ -31,6 +31,7 @@ function Cart() {
     } else {
       localStorage.setItem("cart", JSON.stringify([]));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

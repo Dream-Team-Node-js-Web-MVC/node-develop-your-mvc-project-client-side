@@ -24,7 +24,6 @@ const Navbar = () => {
   const currentUser = useContext(AuthContext);
 
   const localCart = JSON.parse(localStorage.getItem("cart"));
-  console.log(localCart.length);
   async function handleSignOut() {
     await signOut();
   }
