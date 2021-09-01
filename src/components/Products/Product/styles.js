@@ -9,6 +9,11 @@ export default makeStyles(() => ({
     marginTop: "30px",
     marginLeft: "15px",
   },
+  textSize: {
+    fontSize: "15px",
+    height: "130px",
+    overflow: "hidden",
+  },
   media: {
     height: "85px",
     width: "85px",
@@ -28,6 +33,6 @@ export default makeStyles(() => ({
     justifyContent: "space-between",
   },
   cardContentBottom: {
-    // backgroundColor: "#F1A501",
+    height: "220px",
   },
 }));
