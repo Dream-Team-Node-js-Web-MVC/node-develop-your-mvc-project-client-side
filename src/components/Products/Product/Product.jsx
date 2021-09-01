@@ -6,6 +6,13 @@ import useStyles from './styles'
 const Product = (product) => {
     console.log(product.product);
     const classes = useStyles();
+    
+    const getProduct = () => {
+        //? I don't know 
+    }
+    //TODO addToCart function that stores selected product data to localStorage and then we pass the data to Cart
+    //TODO add a function to productController in server to get Cart.
+    //TODO add a function here to handle the quantity of selected product.
     return (
     <div>
         <Card className={classes.root} >
