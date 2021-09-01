@@ -7,8 +7,18 @@ const Product = (product) => {
     console.log(product.product);
     const classes = useStyles();
     
-    const getProduct = () => {
-        //? I don't know 
+      const addToCart = () => {
+        let cart = JSON.parse(localStorage.getItem('cart')) || []
+        let index = cart.findIndex(ele => product.product._id === ele._id)
+        if(index === -1) {
+            cart.push({
+            // qty,
+            _id: product.product._id
+        })
+        } 
+        localStorage.setItem('cart', JSON.stringify(cart))
+
+
     }
     //TODO addToCart function that stores selected product data to localStorage and then we pass the data to Cart
     //TODO add a function to productController in server to get Cart.
@@ -34,7 +44,7 @@ const Product = (product) => {
                         <Typography  variant="h5"  >
                             Price:{product.product.price[0].packPrice}
                         </Typography> 
-                        <IconButton aria-label="Add to Cart">
+                        <IconButton aria-label="Add to Cart" onClick={addToCart}>
                         <AddShoppingCart />
                         </IconButton>
                     </CardActions>
