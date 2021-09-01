@@ -25,7 +25,7 @@ const Product = (product) => {
                     
                     <CardActions disableSpacing className={classes.cardActions}>
                         <Typography  variant="h5"  >
-                            Price:{product.product.price[0].packPrice}
+                            Price:{product.product.price[0].packPrice}€
                         </Typography> 
                         <IconButton aria-label="Add to Cart">
                         <AddShoppingCart />
