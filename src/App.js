@@ -1,12 +1,44 @@
-import React from "react";
-import { Home, LoginSignUp } from "./pages";
+import React, { useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
+import { Home, LoginSignUp, Register } from "./pages";
 
+import AuthContext from "./context/AuthContext";
+import { auth } from "./services/auth";
 const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+  // console.log(auth.currentUser.email);
+  useEffect(() => {
+    let unsubscribeFromAuth = null;
+    unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+
+    return () => {
+      if (unsubscribeFromAuth) {
+        unsubscribeFromAuth();
+      }
+    };
+  }, [currentUser]);
   return (
-    <div>
-      <LoginSignUp />
-      <Home />
-    </div>
+    <AuthContext.Provider value={currentUser}>
+      <Switch>
+        <Route
+          path="/login"
+          exact
+          render={(routeProps) => <LoginSignUp {...routeProps} />}
+        />
+        <Route
+          path="/register"
+          exact
+          render={(routeProps) => <Register {...routeProps} />}
+        />
+        <Route path="/" render={(routeProps) => <Home {...routeProps} />} />
+      </Switch>
+    </AuthContext.Provider>
   );
 };
 

@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { syncUserData } from "../../utils/authRequest"
 import {
   signInWithGoogle,
-  signInWithEmailAndPassword,
+  signUpWithEmailAndPassword,
 } from "../../services/auth";
 
 import Button from '@material-ui/core/Button';
@@ -19,54 +19,44 @@ import Typography from '@material-ui/core/Typography';
 import logo from "../../assets/logo.jpeg";
 import beerImage from "../../assets/beer-duo.png";
 import useStyles from './styles' 
-import "./Login.css"
 
-function Login() {
+function Register() {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loginError, setLoginError] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [error, setError] = useState(null);
 
   async function handleLoginWithGoogle(e) {
-    e.preventDefault();
-    console.log("hello");
+   e.preventDefault();
+  
     setLoading(true);
-    setLoggedIn(false);
 
     try {
       await signInWithGoogle();
-      await syncUserData();
-      setLoggedIn(true);
     } catch (error) {
-      setLoginError(error.message);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   }
  async function handleSubmit(e) {
     e.preventDefault();
-    e.stopPropagation();
-
+    console.log("register")
     setLoading(true);
-    setLoggedIn(false);
 
     try {
-      await signInWithEmailAndPassword(email, password);
+      await signUpWithEmailAndPassword(email, password);
       await syncUserData();
-      setLoggedIn(true);
-      console.log(email)
+      console.log(email, "sign up")
     } catch (error) {
-      setLoginError(error.message);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   }
-    if (loggedIn) {
-    return <Redirect to="/" />;
-  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -80,7 +70,7 @@ function Login() {
         <div className={classes.paper}>
           <img src={logo} alt="Kitty Katty!" className={classes.logo} />
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
@@ -95,7 +85,6 @@ function Login() {
               autoFocus
               value={email}
               onChange={e => {
-                e.preventDefault();
                 setEmail(e.target.value);
               }}
             />
@@ -123,35 +112,33 @@ function Login() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Submit
             </Button>
-             <Button
+    
+            <Button
               type="submit"
               fullWidth
               variant="contained"
               color="secondary"
               className={classes.submit}
-              onClick={handleLoginWithGoogle}
+              onClick = {handleLoginWithGoogle}
             >
-              Sign In With Google
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
+              Sign Up with Google
+            </Button>           
+          </form>
+           <div className="w-full d-flex">
+               <Grid container>
               <Grid item>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/login" variant="body2">
+                  {"Log in"}
                 </Link>
               </Grid>
             </Grid>
-          </form>
+            </div>
         </div>
       </Grid>
     </Grid>
   );
 }
 
-export default Login;
+export default Register;
