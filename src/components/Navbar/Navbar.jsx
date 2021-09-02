@@ -20,6 +20,8 @@ import logo from "../../assets/logo.jpeg";
 import useStyles from "./styles";
 
 const Navbar = () => {
+  
+
   const classes = useStyles();
   const currentUser = useContext(AuthContext);
 
@@ -55,14 +57,29 @@ const Navbar = () => {
             </Typography>
           </NavLink>
           <div className={classes.grow} />
-          {currentUser && (
+          {currentUser ?  (
             <div>
+              <NavLink exact to="newworker">
+              <Button className={classes.links} color="primary">
+                New Employee
+              </Button>
+              </NavLink>
+              <NavLink exact to="dashboard">
+              <Button className={classes.links} color="primary">
+                Dashboard
+              </Button>
+              </NavLink>
+           
               Hello, {currentUser.email}
               <Button color="secondary" onClick={handleSignOut}>
                 Log out
-              </Button>
+              </Button> 
             </div>
-          )}
+          ):(<NavLink exact to="/login">
+          <Button color="primary" >
+                Log in
+              </Button>
+              </NavLink>)}
           <NavLink exact to="/cart">
             <div className={classes.button}>
               <IconButton aria-label="Show cart items" color="inherit" />
