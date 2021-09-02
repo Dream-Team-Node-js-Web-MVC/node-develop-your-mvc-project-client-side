@@ -1,9 +1,11 @@
+import { yellow } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
   root: {
     maxWidth: "100%",
     minWidth: "70%",
+    background: "transparent"
   },
   name: {
     marginTop: "30px",
@@ -13,6 +15,8 @@ export default makeStyles(() => ({
     fontSize: "15px",
     height: "130px",
     overflow: "hidden",
+    marginBottom: "10px",
+    color: "#FFFFFF"
   },
   media: {
     height: "85px",
@@ -27,6 +31,14 @@ export default makeStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
     marginTop: "25px",
+    marginBottom: "25px",
+  },
+  goTo: {
+    backgroundColor: "#FFCD00"
+  },
+  price: {
+    color: "#FFFFFF",
+    fontWeight: "bolder"
   },
   cardContentTop: {
     display: "flex",
@@ -34,5 +46,11 @@ export default makeStyles(() => ({
   },
   cardContentBottom: {
     height: "220px",
+    backgroundColor: '#4D01F1',
+    padding: "10%",
+    borderRadius: "2%"
   },
+  icon: {
+    color: "#FFFFFF"
+  }
 }));

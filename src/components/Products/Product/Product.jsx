@@ -10,6 +10,7 @@ import {
   Typography,
   IconButton,
   Button,
+  Box
 } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import useStyles from "./styles";
@@ -40,18 +41,18 @@ const Product = (product) => {
     <div>
       <Card className={classes.root}>
         <CardContent>
-          <div className={classes.cardContentTop}>
-            <Typography className={classes.name} variant="h6" gutterBottom>
-              {product.product.title}
-            </Typography>
-            <CardMedia
-              className={classes.media}
-              image={product.product.images[0]}
-              title={product.product.title}
-            />
-          </div>
+          <Box className={classes.cardContentTop}>
+              <Typography className={classes.name} variant="h5" gutterBottom>
+                {product.product.title}
+              </Typography>
+              <CardMedia
+                className={classes.media}
+                image={product.product.images[0]}
+                title={product.product.title}
+              />
+          </Box>
 
-          <div className={classes.cardContentBottom}>
+          <Box className={classes.cardContentBottom}>
             <Typography
               variant="body2"
               color="textSecondary"
@@ -60,18 +61,21 @@ const Product = (product) => {
               {product.product.description}
             </Typography>
 
-            <CardActions disableSpacing className={classes.cardActions}>
-              <Typography variant="h5">
-                Price:{product.product.price[0].packPrice}€
+            <Box className={classes.price}>
+              <Typography variant="h6">
+                  Price {product.product.price[0].packPrice}€
               </Typography>
-              <NavLink to={`/product/${product.product._id}`}>
-                <Button>Go to Detail</Button>
+            </Box>
+
+            <Box className={classes.cardActions}>
+              <NavLink to={`/product/${product.product._id}`} style={{ textDecoration: 'none' }}>
+                <Button variant="contained" className={classes.goTo}>Go to Detail</Button>
               </NavLink>
-              <IconButton aria-label="Add to Cart" onClick={addToCart}>
-                <AddShoppingCart />
+              <IconButton className={classes.icon} aria-label="Add to Cart" onClick={addToCart}>
+                <AddShoppingCart/>
               </IconButton>
-            </CardActions>
-          </div>
+            </Box>
+          </Box>
         </CardContent>
       </Card>
     </div>

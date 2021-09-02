@@ -1,6 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
+  root: {
+    padding: "5%",
+    position: "fixed"
+  },
   section: {
     display: "flex",
     justifyContent: "space-between",
@@ -18,5 +22,15 @@ export default makeStyles(() => ({
     marginTop: "25px",
     fontSize: "20px",
     marginRight: "10%"
+  },
+  icon: {
+    width: "40%",
+    backgroundColor: "#FFCD00",
+    marginTop: "4%"
+  },
+  back: {
+    marginTop: "3%",
+    backgroundColor: "#313131",
+    color: "#FFFFFF"
   }
 }));
