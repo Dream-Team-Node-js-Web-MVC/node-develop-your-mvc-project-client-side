@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Redirect, NavLink } from "react-router-dom";
+import ProductDetail from "../../ProductDetail/ProductDetail";
+import axios from "axios";
 import {
   Card,
   CardMedia,
@@ -6,12 +9,12 @@ import {
   CardActions,
   Typography,
   IconButton,
+  Button,
 } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import useStyles from "./styles";
 
 const Product = (product) => {
-  // console.log(product.product);
   const classes = useStyles();
   const [cartLength, setCartLength] = useState(0);
   const addToCart = () => {
@@ -27,6 +30,7 @@ const Product = (product) => {
     localStorage.setItem("cart", JSON.stringify(cart));
     setCartLength(cart.length);
   };
+
   //TODO add a function here to handle the quantity of selected product.
 
   return (
@@ -57,6 +61,9 @@ const Product = (product) => {
               <Typography variant="h5">
                 Price:{product.product.price[0].packPrice}€
               </Typography>
+              <NavLink to={`/product/${product.product._id}`}>
+                <Button>Go to Detail</Button>
+              </NavLink>
               <IconButton aria-label="Add to Cart" onClick={addToCart}>
                 <AddShoppingCart />
               </IconButton>
