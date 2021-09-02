@@ -7,9 +7,7 @@ function WorkerForm() {
         <>
             <Navbar/>
             <main>
-            
             <Form />
-            
             </main>
         </>
     )
