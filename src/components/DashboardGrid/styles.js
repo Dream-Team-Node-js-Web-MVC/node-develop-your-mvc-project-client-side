@@ -6,4 +6,7 @@ export default makeStyles((theme) => ({
     height: 400,
     width: "100%",
   },
+  buttons: {
+    margin: theme.spacing(1),
+  },
 }));

@@ -1,5 +1,6 @@
 import { DataGrid } from '@mui/x-data-grid';
-import React, {useEffect, useState, useCallback} from 'react';
+import { Button } from "@material-ui/core";
+import React, {useEffect, useState} from 'react';
 import useStyles from './styles';
 
 import axios from "axios";
@@ -43,16 +44,6 @@ const columns = [
     }
 ];
 
-/* const rows = [
-    {id: 1, fullName: "Jordi Arnau", email: "jordi@mail.com", password: "123456", role: "employee"},
-    {id: 2, fullName: "Jordi Arnau", email: "jordi@mail.com", password: "123456", role: "employee"},
-    {id: 3, fullName: "Jordi Arnau", email: "jordi@mail.com", password: "123456", role: "employee"},
-    {id: 4, fullName: "Jordi Arnau", email: "jordi@mail.com", password: "123456", role: "employee"},
-    {id: 5, fullName: "Jordi Arnau", email: "jordi@mail.com", password: "123456", role: "employee"},
-    {id: 6, fullName: "Jordi Arnau", email: "jordi@mail.com", password: "123456", role: "employee"},
-    {id: 7, fullName: "Jordi Arnau", email: "jordi@mail.com", password: "123456", role: "employee"}
-]; */
-
 function DashboardGrid() {
     const classes = useStyles();
 
@@ -60,6 +51,9 @@ function DashboardGrid() {
     useEffect(() => {
         getWorkers();
     }, []);
+
+    useEffect(() => {
+    }, [workers]);
 
     const getWorkers = async () => {
         try {
@@ -81,20 +75,32 @@ function DashboardGrid() {
     }
 
     const rows = dataRows();
-    
-    /* const handleEditCommit = useCallback((new) => {
-        console.log(new);
-    }, []); */
 
-    const handleEditCommit = useCallback(
-        ({ id, field, value }) => {
-          console.log(id);
-          console.log(field);
-          console.log(value);
-          setWorkers([...workers] field: value)
-        },
-        [workers],
-      );
+    const handleEdit = async ({ id, field, value }) => {
+        try {
+            const modified = workers.filter(worker => worker._id === id);
+            const patchedWorker = {...modified[0], [field]: value}
+            await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/workers/${id}`, patchedWorker);
+            setWorkers(workers.map((worker) => {
+                if(worker._id === id) {
+                    worker = {...worker, [field]: value};
+                    
+                }
+                return worker;
+            }));
+        } catch (error) {
+            console.log("error = ", error)
+        }
+    };
+
+    const selectedRows = (id) => {
+        console.log(id);
+        return id;
+    };
+    /* const remove = async (event, a, b, selectedRows) => {
+        console.log(selectedRows[0]);
+    } */
+
 
     return (
         <div className={classes.root}>
@@ -103,11 +109,13 @@ function DashboardGrid() {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
-            checkboxSelection
-            disableSelectionOnClick
-            //onCellEditStop={handleEdit}
-            onCellEditCommit={handleEditCommit}
+            //checkboxSelection
+            //disableSelectionOnClick
+            onCellEditCommit={handleEdit}
+            onSelectionModelChange={selectedRows}
         />
+            <Button  className={classes.buttons}  variant="contained" color="primary">Create</Button>
+            <Button className={classes.buttons} variant="contained" color="secondary" /* onClick={remove} */ >Remove</Button>
         </div>
     )
 }
