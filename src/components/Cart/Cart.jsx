@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 import Navbar from "../Navbar/Navbar";
 
@@ -171,11 +172,11 @@ function Cart() {
                 <Typography variant="h4" gutterBottom>
                   Total: € {total}
                 </Typography>
-                <NavLint to="/shipping">
+                <NavLink to="/shipping">
                   <Button variant="contained" color="secondary">
                     Checkout
                   </Button>
-                </NavLint>
+                </NavLink>
               </Grid>
             </Grid>
           </Paper>
