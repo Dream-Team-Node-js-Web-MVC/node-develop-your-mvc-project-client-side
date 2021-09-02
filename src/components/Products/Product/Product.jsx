@@ -16,23 +16,26 @@ import useStyles from "./styles";
 
 const Product = (product) => {
   const classes = useStyles();
+  const qty = 1;
   const [cartLength, setCartLength] = useState(0);
   const addToCart = () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let index = cart.findIndex((ele) => product.product._id === ele._id);
+    console.log(index);
     if (index === -1) {
       cart.push({
-        // qty,
+        qty,
         _id: product.product._id,
       });
       setCartLength(cart.length);
+    } else {
+      cart[index].qty = qty + cart[index].qty;
     }
     localStorage.setItem("cart", JSON.stringify(cart));
     setCartLength(cart.length);
   };
 
   //TODO add a function here to handle the quantity of selected product.
-
   return (
     <div>
       <Card className={classes.root}>
