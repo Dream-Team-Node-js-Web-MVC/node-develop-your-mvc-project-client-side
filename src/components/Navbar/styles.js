@@ -67,4 +67,7 @@ export default makeStyles((theme) => ({
       width: "20ch",
     },
   },
+  links: {
+    margin: theme.spacing(0, 2),
+  },
 }));

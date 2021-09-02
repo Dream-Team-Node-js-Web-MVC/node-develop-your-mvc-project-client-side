@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import useStyles from './styles' 
 import { TextField, Grid, MenuItem,Button } from "@material-ui/core";
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 function Form() {
 
@@ -33,6 +34,7 @@ function Form() {
             
         }
     }
+    
 
     const classes = useStyles();
     return (
@@ -83,7 +85,9 @@ function Form() {
                     <MenuItem value="admin">Admin</MenuItem>
                     <MenuItem value="employee">Employee</MenuItem>
                 </TextField>  
+                <NavLink exact to="/dashboard">
                     <Button type="submit" className={classes.buttons}   variant="contained" color="primary" >Submit</Button>
+                </NavLink>
                     <Button className={classes.buttons} variant="contained" color="secondary" onClick={handleClear} >Clear</Button>
             </Grid>
         </Grid>
