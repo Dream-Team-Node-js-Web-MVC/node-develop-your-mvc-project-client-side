@@ -12,6 +12,9 @@ export default makeStyles((theme) => ({
       // position:"sticky",
     },
   },
+  navbar: {
+    minHeight: 90,
+  },
   title: {
     flexGrow: 1,
     alignItems: "center",
@@ -20,7 +23,7 @@ export default makeStyles((theme) => ({
   },
   image: {
     marginRight: "10px",
-    height: "45px",
+    height: "60px",
   },
   menuButton: {
     marginRight: theme.spacing(2),

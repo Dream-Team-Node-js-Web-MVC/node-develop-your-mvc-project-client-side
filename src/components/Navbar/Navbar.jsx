@@ -44,7 +44,7 @@ const Navbar = () => {
         className={classExpression.appbar}
         color="inherit"
       >
-        <Toolbar>
+        <Toolbar className={classes.navbar}>
           <NavLink exact to="/">
             <Typography variant="h6" className={classes.title} color="inherit">
               <img
