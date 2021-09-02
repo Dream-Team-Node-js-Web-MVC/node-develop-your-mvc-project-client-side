@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import {
   Home,
+  Dashboard,
   LoginSignUp,
   Register,
   WorkerForm,
@@ -78,6 +79,11 @@ const App = () => {
           path="/newworker"
           exact
           render={(routeProps) => <WorkerForm {...routeProps} />}
+        />
+        <Route
+          path="/dashboard"
+          exact
+          render={(routeProps) => <Dashboard {...routeProps} />}
         />
         <Route
           path="/shipping"
