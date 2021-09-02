@@ -69,7 +69,7 @@ function Cart() {
           if (ele._id === ele2._id) temp += ele2.qty * ele.price[0].packPrice;
         });
       });
-      temp = temp.toFixed(1);
+      temp = temp.toFixed(2);
       setTotal(temp);
       await getCartProducts();
     } catch (error) {
@@ -172,7 +172,7 @@ function Cart() {
                 <Typography variant="h4" gutterBottom>
                   Total: € {total}
                 </Typography>
-                <NavLink to="/shipping">
+                <NavLink to={{ pathname: "/shipping", state: { cart, total } }}>
                   <Button variant="contained" color="secondary">
                     Checkout
                   </Button>
