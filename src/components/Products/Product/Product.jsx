@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardMedia,
@@ -11,9 +11,9 @@ import { AddShoppingCart } from "@material-ui/icons";
 import useStyles from "./styles";
 
 const Product = (product) => {
-  console.log(product.product);
+  // console.log(product.product);
   const classes = useStyles();
-
+  const [cartLength, setCartLength] = useState(0);
   const addToCart = () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let index = cart.findIndex((ele) => product.product._id === ele._id);
@@ -22,10 +22,11 @@ const Product = (product) => {
         // qty,
         _id: product.product._id,
       });
+      setCartLength(cart.length);
     }
     localStorage.setItem("cart", JSON.stringify(cart));
+    setCartLength(cart.length);
   };
-
   //TODO add a function here to handle the quantity of selected product.
 
   return (

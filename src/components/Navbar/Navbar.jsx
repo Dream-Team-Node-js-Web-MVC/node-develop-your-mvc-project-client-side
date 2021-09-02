@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
@@ -24,9 +24,19 @@ const Navbar = () => {
   const currentUser = useContext(AuthContext);
 
   const localCart = JSON.parse(localStorage.getItem("cart"));
+
   async function handleSignOut() {
     await signOut();
   }
+  const [cartLength, setCartLength] = useState(0);
+  useEffect(() => {
+    if (localCart == null) {
+      setCartLength(0);
+    } else {
+      setCartLength(localCart.length);
+    }
+  }, [localCart]);
+  console.log(cartLength, "cartLength");
   return (
     <>
       <AppBar
@@ -57,7 +67,7 @@ const Navbar = () => {
           <NavLink exact to="/cart">
             <div className={classes.button}>
               <IconButton aria-label="Show cart items" color="inherit" />
-              <Badge badgeContent={localCart.length} color="secondary">
+              <Badge badgeContent={cartLength} color="secondary">
                 <ShoppingCart />
               </Badge>
             </div>
