@@ -5,6 +5,8 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
   },
   content: {
+    display: "flex",
+    alignItems: "flex-start",
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(10),
@@ -24,4 +26,14 @@ export default makeStyles((theme) => ({
     maxWidth: "100%",
     maxHeight: "100%",
   },
+  item: {
+    padding: "5%",
+  },
+  empty: {
+    padding: "5%"
+  },
+  summary: {
+    padding: "3%",
+    position: "sticky",
+  }
 }));

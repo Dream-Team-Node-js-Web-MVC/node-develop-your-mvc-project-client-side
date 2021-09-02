@@ -5,9 +5,10 @@ import Navbar from "../Navbar/Navbar";
 
 import axios from "axios";
 import getCart from "../../utils/getCart";
-import { Button, Grid, Paper, Typography, ButtonBase } from "@material-ui/core";
+import { Button, Grid, Paper, Typography, ButtonBase, Card, CardContent } from "@material-ui/core";
 
 import useStyles from "./styles";
+import { BuildTwoTone } from "@material-ui/icons";
 
 function Cart() {
   const classes = useStyles();
@@ -91,12 +92,14 @@ function Cart() {
             <Grid container spacing={4}>
               {cart.length === 0 ? (
                 <div className={classes.root}>
-                  <h1>Your Cart is Empty</h1>
+                  <Typography className={classes.empty} variant="h4">
+                    Your Cart is Empty
+                  </Typography>
                 </div>
               ) : (
                 cart.map((cartItem, index) => {
                   return (
-                    <div key={index}>
+                    <div key={index} className={classes.item}>
                       <Grid item>
                         <ButtonBase className={classes.image}>
                           <img
@@ -109,10 +112,10 @@ function Cart() {
                       <Grid item xs={12} sm container>
                         <Grid item xs container direction="column" spacing={2}>
                           <Grid item xs>
-                            <Typography gutterBottom variant="subtitle1">
+                            <Typography gutterBottom variant="h5">
                               {cartItem.title}
                             </Typography>
-                            <Typography variant="body2" gutterBottom>
+                            <Typography variant="h6" gutterBottom>
                               {cartItem.country}
                             </Typography>
                             <Typography variant="body2" gutterBottom>
@@ -120,45 +123,33 @@ function Cart() {
                             </Typography>
                           </Grid>
                           <Grid item>
-                            <Typography
-                              variant="body2"
-                              style={{ cursor: "pointer" }}
-                              onClick={() => handleRemove(index)}
-                            >
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              onClick={() => handleRemove(index)}>
                               Remove
-                            </Typography>
+                            </Button>
                           </Grid>
                         </Grid>
                         <Grid item>
-                          <Typography variant="subtitle1">
+                          <Typography variant="h6">
                             € {cartItem.price[0].packPrice}
                           </Typography>
                           <div>
-                            <Button
-                              onClick={() =>
-                                handleQuantity("-", index, cartItem._id)
-                              }
-                            >
+                            <Button onClick={() => handleQuantity("-", index, cartItem._id) }>
                               -
                             </Button>
-                            <input
-                              onChange={(e) =>
-                                handleQuantity(
+                            <input onChange={(e) => handleQuantity(
                                   "input",
                                   index,
                                   cartItem._id,
                                   e.target.value,
-                                )
-                              }
+                                )}
                               type="number"
                               value={cartItem.qty}
-                              style={{ width: "30%" }}
+                              style={{ width: "10%", height: "25px" }}
                             />
-                            <Button
-                              onClick={() =>
-                                handleQuantity("+", index, cartItem._id)
-                              }
-                            >
+                            <Button onClick={() => handleQuantity("+", index, cartItem._id)}>
                               +
                             </Button>
                           </div>
@@ -168,19 +159,21 @@ function Cart() {
                   );
                 })
               )}
-              <Grid item>
-                <Typography variant="h4" gutterBottom>
-                  Total: € {total}
-                </Typography>
-                <NavLink to={{ pathname: "/shipping", state: { cart, total } }}>
-                  <Button variant="contained" color="secondary">
-                    Checkout
-                  </Button>
-                </NavLink>
-              </Grid>
             </Grid>
           </Paper>
         </div>
+        <Card className={classes.summary} elevation={5}>
+          <CardContent>
+            <Typography variant="h4" gutterBottom>
+               Total: {total} €
+            </Typography>
+            <NavLink to="/shipping" style={{ textDecoration: 'none' }}>
+              <Button variant="contained" color="primary">
+                Checkout
+              </Button>
+            </NavLink>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );

@@ -5,12 +5,12 @@ import AuthContext from "../../context/AuthContext";
 import { signOut } from "../../services/auth";
 
 import {
+  Grid,
   AppBar,
   Toolbar,
   IconButton,
   Badge,
-  MenuItem,
-  Menu,
+  Box,
   Typography,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -58,23 +58,29 @@ const Navbar = () => {
           </NavLink>
           <div className={classes.grow} />
           {currentUser ?  (
-            <div>
-              <NavLink exact to="newworker">
-              <Button className={classes.links} color="primary">
-                New Employee
-              </Button>
-              </NavLink>
-              <NavLink exact to="dashboard">
-              <Button className={classes.links} color="primary">
-                Dashboard
-              </Button>
-              </NavLink>
-           
-              Hello, {currentUser.email}
-              <Button color="secondary" onClick={handleSignOut}>
-                Log out
-              </Button> 
-            </div>
+              <Grid>
+                <Box display="flex">
+                  <NavLink exact to="newworker" style={{ textDecoration: 'none' }}>
+                    <Button className={classes.links} color="primary">
+                      New Employee
+                    </Button>
+                  </NavLink>
+
+                  <NavLink exact to="dashboard" style={{ textDecoration: 'none' }}>
+                    <Button className={classes.links} color="primary">
+                      Dashboard
+                    </Button>
+                  </NavLink>
+
+                  <Typography className={classes.title} color="inherit" display="inline">
+                    Hello, {currentUser.email}
+                  </Typography>
+
+                  <Button color="secondary" onClick={handleSignOut}>
+                    Log out
+                  </Button>
+                </Box>
+              </Grid>
           ):(<NavLink exact to="/login">
           <Button color="primary" >
                 Log in
