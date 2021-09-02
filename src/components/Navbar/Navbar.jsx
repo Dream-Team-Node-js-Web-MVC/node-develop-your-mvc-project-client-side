@@ -36,7 +36,6 @@ const Navbar = () => {
       setCartLength(localCart.length);
     }
   }, [localCart]);
-  console.log(cartLength, "cartLength");
   return (
     <>
       <AppBar
