@@ -13,6 +13,8 @@ export default makeStyles((theme) => ({
     fontSize: "5em",
   },
   buttons: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
+    height: "50px",
+    width: "80px",
   },
 }));

@@ -14,6 +14,7 @@ function Form() {
     const handleSubmit = (event) => {
         event.preventDefault();
         postEmployee();
+        setNewEmployee({fullName: "",email:"", password:"",role:"",profileImage:""})
         console.log(newEmployee)
         
     }
@@ -82,7 +83,7 @@ function Form() {
                     <MenuItem value="admin">Admin</MenuItem>
                     <MenuItem value="employee">Employee</MenuItem>
                 </TextField>  
-                    <Button type="submit" className={classes.buttons}   variant="contained" color="primary">Submit</Button>
+                    <Button type="submit" className={classes.buttons}   variant="contained" color="primary" >Submit</Button>
                     <Button className={classes.buttons} variant="contained" color="secondary" onClick={handleClear} >Clear</Button>
             </Grid>
         </Grid>
