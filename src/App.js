@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, LoginSignUp, Register, WorkerForm } from "./pages";
+import { Home, LoginSignUp, Register, WorkerForm, Shipping } from "./pages";
 
 import axios from "axios";
 
@@ -71,6 +71,11 @@ const App = () => {
           path="/newworker"
           exact
           render={(routeProps) => <WorkerForm {...routeProps} />}
+        />
+        <Route
+          path="/shipping"
+          exact
+          render={(routeProps) => <Shipping {...routeProps} />}
         />
         <Route
           path="/product/:id"
