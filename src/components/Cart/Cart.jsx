@@ -70,7 +70,7 @@ function Cart() {
           if (ele._id === ele2._id) temp += ele2.qty * ele.price[0].packPrice;
         });
       });
-      temp = temp.toFixed(1);
+      temp = temp.toFixed(2);
       setTotal(temp);
       await getCartProducts();
     } catch (error) {
