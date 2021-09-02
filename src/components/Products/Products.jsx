@@ -33,7 +33,7 @@ const Products = () => {
         const products = await axios.get( `${process.env.REACT_APP_API_BASE_URL}/products/`) 
         // setProducts(products.data.allProducts)
 
-        // console.log(products.data.data)
+         console.log(products.data.data)
         setProducts(products.data.data)
     //    products.data.data.map(beer => console.log(beer));
       }

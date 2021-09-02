@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, LoginSignUp, Register, WorkerForm } from "./pages";
+import { Dashboard, Home, LoginSignUp, Register, WorkerForm } from "./pages";
 
 import AuthContext from "./context/AuthContext";
 import { auth } from "./services/auth";
@@ -40,6 +40,11 @@ const App = () => {
         <Route
           path="/newworker"
           render={(routeProps) => <WorkerForm {...routeProps} />}
+        />
+        <Route
+          path="/dashboard"
+          exact
+          render={(routeProps) => <Dashboard {...routeProps} />}
         />
         <Route path="/" render={(routeProps) => <Home {...routeProps} />} />
       </Switch>

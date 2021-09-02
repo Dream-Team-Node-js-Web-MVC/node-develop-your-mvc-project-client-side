@@ -14,7 +14,7 @@ export default makeStyles((theme) => ({
     },
   },
   input: {
-    fontSize: "90px",
+    fontSize: "5em",
   },
   buttons: {
     margin: theme.spacing(1),
