@@ -2,11 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   root: {
-    // display: "flex",
-    // justifyContent: "center",
-    // alignItems: "center",
-
-    marginTop: "100px",
+    marginTop: "10%",
     marginLeft: "25%",
     "& .MuiTextField-root": {
       margin: theme.spacing(2),
@@ -17,6 +13,8 @@ export default makeStyles((theme) => ({
     fontSize: "5em",
   },
   buttons: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
+    height: "50px",
+    width: "80px",
   },
 }));

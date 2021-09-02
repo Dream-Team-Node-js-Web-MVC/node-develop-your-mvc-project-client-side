@@ -1,43 +1,97 @@
-import React, { useContext } from 'react';
-import AuthContext from "../../context/AuthContext"
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+
+import AuthContext from "../../context/AuthContext";
 import { signOut } from "../../services/auth";
 
-import { AppBar,Toolbar,IconButton,Badge,MenuItem,Menu,Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import { ShoppingCart } from '@material-ui/icons';
-import { classExpression } from '@babel/types';
-import logo from '../../assets/logo.jpeg';
-import useStyles from './styles'
-
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Badge,
+  MenuItem,
+  Menu,
+  Typography,
+} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import { ShoppingCart } from "@material-ui/icons";
+import { classExpression } from "@babel/types";
+import logo from "../../assets/logo.jpeg";
+import useStyles from "./styles";
 
 const Navbar = () => {
-    const classes = useStyles();
-    const currentUser = useContext(AuthContext)
-    async function handleSignOut() {
+  
+
+  const classes = useStyles();
+  const currentUser = useContext(AuthContext);
+
+  const localCart = JSON.parse(localStorage.getItem("cart"));
+
+  async function handleSignOut() {
     await signOut();
   }
-    return (
-        <>
-            <AppBar position="fixed" className={classExpression.appbar} color="inherit">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title} color="inherit">
-                        <img src={logo} alt="Beer Kingdom" height="25px" className={classes.image}/>
-                    </Typography>
-                    <div className={classes.grow} />
-    {currentUser && (
-    <div>Hello, {currentUser.email}
-    <Button color="secondary" onClick={handleSignOut}>Log out</Button></div>)}
-                    <div className={classes.button}>
-                        <IconButton aria-label="Show cart items" color="inherit"/>
-                        <Badge badgeContent={2} color="secondary">
-                            <ShoppingCart/>
-                        </Badge>
+  const [cartLength, setCartLength] = useState(0);
+  useEffect(() => {
+    if (localCart == null) {
+      setCartLength(0);
+    } else {
+      setCartLength(localCart.length);
+    }
+  }, [localCart]);
+  return (
+    <>
+      <AppBar
+        position="fixed"
+        className={classExpression.appbar}
+        color="inherit"
+      >
+        <Toolbar className={classes.navbar}>
+          <NavLink exact to="/">
+            <Typography variant="h6" className={classes.title} color="inherit">
+              <img
+                src={logo}
+                alt="Beer Kingdom"
+                height="25px"
+                className={classes.image}
+              />
+            </Typography>
+          </NavLink>
+          <div className={classes.grow} />
+          {currentUser ?  (
+            <div>
+              <NavLink exact to="newworker">
+              <Button className={classes.links} color="primary">
+                New Employee
+              </Button>
+              </NavLink>
+              <NavLink exact to="dashboard">
+              <Button className={classes.links} color="primary">
+                Dashboard
+              </Button>
+              </NavLink>
+           
+              Hello, {currentUser.email}
+              <Button color="secondary" onClick={handleSignOut}>
+                Log out
+              </Button> 
+            </div>
+          ):(<NavLink exact to="/login">
+          <Button color="primary" >
+                Log in
+              </Button>
+              </NavLink>)}
+          <NavLink exact to="/cart">
+            <div className={classes.button}>
+              <IconButton aria-label="Show cart items" color="inherit" />
+              <Badge badgeContent={cartLength} color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </div>
+          </NavLink>
+        </Toolbar>
+      </AppBar>
+    </>
+  );
+};
 
-                    </div>
-                </Toolbar>
-            </AppBar>
-        </>
-    )
-}
-
-export default Navbar
+export default Navbar;
