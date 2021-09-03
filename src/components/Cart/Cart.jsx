@@ -167,7 +167,7 @@ function Cart() {
             <Typography variant="h4" gutterBottom>
                Total: {total} €
             </Typography>
-            <NavLink to="/shipping" style={{ textDecoration: 'none' }}>
+            <NavLink to={{ pathname: "/shipping", state: { cart, total } }} style={{ textDecoration: 'none' }}>
               <Button variant="contained" color="primary">
                 Checkout
               </Button>
