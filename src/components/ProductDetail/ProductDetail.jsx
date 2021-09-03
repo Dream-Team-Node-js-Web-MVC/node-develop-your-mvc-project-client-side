@@ -21,23 +21,27 @@ function ProductDetail(products) {
     const [cartLength, setCartLength] = useState(0);
 
     const addToCart = () => {
-        {products.products.map((product) => {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let index = cart.findIndex((ele) => products.match.params.id === ele._id);
-            
-            if (index === -1) {
-              cart.push({
-                qty,
-                _id: product.product._id,
-              });
-              setCartLength(cart.length);
-            } else if (products.match.params.id === product._id) {
-              cart[index].qty = qty + cart[index].qty;
-            }
+        const item = products.products.filter( product => product._id === products.match.params.id );
+        console.log(item[0]._id);
 
-            localStorage.setItem("cart", JSON.stringify(cart));
-            setCartLength(cart.length);
-        })}
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let index = cart.findIndex((ele) => products.match.params.id === ele._id);
+
+        if (index === -1) {
+          cart.push({
+          qty,
+          _id: item[0]._id,
+        });
+
+        console.log("Product ID: " + item[0]._id);
+
+        setCartLength(cart.length);
+        } else if (products.match.params.id === item[0]._id) {
+          cart[index].qty = qty + cart[index].qty;
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        setCartLength(cart.length);
     };
 
   return (
