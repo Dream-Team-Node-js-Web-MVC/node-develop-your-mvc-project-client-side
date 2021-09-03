@@ -46,7 +46,7 @@ export default makeStyles(() => ({
   },
   cardContentBottom: {
     height: "220px",
-    backgroundColor: '#4D01F1',
+    backgroundColor: '#00241b',
     padding: "10%",
     borderRadius: "2%"
   },

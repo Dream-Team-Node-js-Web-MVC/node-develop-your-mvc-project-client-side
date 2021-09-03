@@ -43,7 +43,6 @@ const Products = () => {
 
   return (
     <>
-      <Navbar />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Grid container justifyContent="center" spacing={4}>
