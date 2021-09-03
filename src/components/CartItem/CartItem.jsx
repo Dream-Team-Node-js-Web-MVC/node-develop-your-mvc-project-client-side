@@ -9,7 +9,8 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 function CartItem({ totalPrice, cart }) {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Grid className={classes.root}>
+    <div>
       {cart.map((cartItem) => {
         return (
           <div key={cartItem._id}>
@@ -49,8 +50,11 @@ function CartItem({ totalPrice, cart }) {
           </div>
         );
       })}
-      <Typography variant="h5">Total: € {totalPrice}</Typography>
     </div>
+    <div>
+      <Typography variant="h5" className={classes.price}>Total: € {totalPrice}</Typography>
+    </div>
+    </Grid>
   );
 }
 

@@ -5,7 +5,8 @@ function Payment(props) {
   const { totalPrice, cart } = props.location.state;
   console.log(totalPrice, "total price from payment");
   console.log(cart, "cart from payment");
-
+  console.log(props.location.state);
+  
   return (
     <div>
       <Navbar />;
