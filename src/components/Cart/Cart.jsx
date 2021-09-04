@@ -36,18 +36,20 @@ function Cart() {
     }
   }, []);
 
-  const handleQuantity = async (action, index, _id, value) => {
-    const local_idIndex = localCart.findIndex((ele) => _id === ele._id);
+  const handleQuantity = async (action, _id, option, value) => {
+
+    const localIndex = localCart.findIndex((ele) => _id === ele._id && option === ele.option);
+
     if (action === "+") {
-      localCart[local_idIndex].qty = localCart[local_idIndex].qty + 1;
+      localCart[localIndex].qty += 1;
     }
     if (action === "-") {
-      if (localCart[local_idIndex].qty > 1) {
-        localCart[local_idIndex].qty = localCart[local_idIndex].qty - 1;
+      if (localCart[localIndex].qty > 1) {
+        localCart[localIndex].qty -= 1;
       }
     }
     if (action === "input") {
-      localCart[local_idIndex].qty = Number(value);
+      localCart[localIndex].qty = Number(value);
     }
 
     localStorage.setItem("cart", JSON.stringify(localCart));
@@ -138,20 +140,20 @@ function Cart() {
                             € {cartItem.price[cartItem.option].packPrice}
                           </Typography>
                           <div>
-                            <Button onClick={() => handleQuantity("-", index, cartItem._id) }>
+                            <Button onClick={() => handleQuantity("-", cartItem._id, cartItem.option) }>
                               -
                             </Button>
                             <input onChange={(e) => handleQuantity(
                                   "input",
-                                  index,
                                   cartItem._id,
-                                  e.target.value,
+                                  cartItem.option,
+                                  e.target.value
                                 )}
                               type="number"
                               value={cartItem.qty}
                               style={{ width: "10%", height: "25px" }}
                             />
-                            <Button onClick={() => handleQuantity("+", index, cartItem._id)}>
+                            <Button onClick={() => handleQuantity("+", cartItem._id, cartItem.option)}>
                               +
                             </Button>
                           </div>
