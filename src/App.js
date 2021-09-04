@@ -10,7 +10,7 @@ import {
   Payment,
 } from "./pages";
 
-import getCart from "./utils/getCart";
+//import getCart from "./utils/getCart";
 import axios from "axios";
 
 import { Cart, ProductDetail } from "./components";
@@ -21,9 +21,9 @@ import { auth } from "./services/auth";
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [products, setProducts] = useState([]);
-  const localCart = JSON.parse(localStorage.getItem("cart"));
+  //const localCart = JSON.parse(localStorage.getItem("cart"));
   console.log(currentUser);
-  const makeOrder = async () => {
+  /* const makeOrder = async () => {
     try {
       await getCart(localCart);
       console.log(await getCart(localCart));
@@ -39,7 +39,7 @@ const App = () => {
     } catch (error) {
       console.log(error, "error");
     }
-  };
+  }; */
 
   // console.log(auth.currentUser.email);
   useEffect(() => {
@@ -63,9 +63,9 @@ const App = () => {
     getProducts();
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     makeOrder();
-  }, []);
+  }, []); */
   const getProducts = async () => {
     try {
       const products = await axios.get(

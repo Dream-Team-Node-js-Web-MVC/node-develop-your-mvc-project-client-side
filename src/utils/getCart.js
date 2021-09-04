@@ -8,18 +8,22 @@ const getCart = async (localCart) => {
         cart: localCart,
       },
     );
-    console.log(products, "products");
-    localCart.forEach((ele) => {
-      console.log(ele);
-      const index = products.data.products.findIndex(
-        (ele2) => ele2._id === ele._id,
+
+    const cartList = localCart.map((ele) => {
+      let productDb = products.data.products.filter(
+        (product) => product._id === ele._id,
       );
-      console.log(products.data.products[index]);
-      products.data.products[index].qty = ele.qty;
-      products.data.products[index].option = ele.option;
+      const productInCart = {
+        ...productDb[0],
+        qty: ele.qty,
+        option: ele.option,
+      };
+
+      return productInCart;
     });
 
-    return products.data.products;
+    localCart = cartList;
+    return cartList;
   } catch (error) {
     console.log(error);
   }

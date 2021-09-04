@@ -67,7 +67,7 @@ function Cart() {
       var temp = 0;
       products.data.products.forEach((ele) => {
         localCart.forEach((ele2) => {
-          if (ele._id === ele2._id) temp += ele2.qty * ele.price[ele2.price].packPrice;
+          if (ele._id === ele2._id) temp += ele2.qty * ele.price[ele2.option].packPrice;
         });
       });
       temp = temp.toFixed(2);
@@ -78,14 +78,13 @@ function Cart() {
     }
   };
 
-  const handleRemove = (index) => {
-    localCart = localCart.filter(item => item._id !== index );
+  const handleRemove = (id, option) => {
+    localCart = localCart.filter(item => !(item._id === id && item.option === option));
     localStorage.setItem("cart", JSON.stringify(localCart));
       
     getTotal();
   };
-  console.log(cart);
-  console.log(localCart);
+
   return (
     <div>
       <Navbar />
@@ -101,7 +100,6 @@ function Cart() {
                 </div>
               ) : (
                 cart.map((cartItem, index) => {
-                  console.log(cartItem, "cart item")
                   return (
                     <div key={index} className={classes.item}>
                       <Grid item>
@@ -130,7 +128,7 @@ function Cart() {
                             <Button
                               variant="contained"
                               color="secondary"
-                              onClick={() => handleRemove(cartItem._id)}>
+                              onClick={() => handleRemove(cartItem._id, cartItem.option)}>
                               Remove
                             </Button>
                           </Grid>
