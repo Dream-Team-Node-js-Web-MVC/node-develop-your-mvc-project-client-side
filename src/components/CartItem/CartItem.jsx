@@ -10,9 +10,10 @@ function CartItem({ totalPrice, cart }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      {cart.map((cartItem) => {
+      {cart.map((cartItem, index) => {
+        console.log(cartItem, "cartItem")
         return (
-          <div key={cartItem._id}>
+          <div key={index}>
             <Paper className={classes.paper}>
               <Grid container spacing={2}>
                 <Grid item>
@@ -34,13 +35,13 @@ function CartItem({ totalPrice, cart }) {
                         Country: {cartItem.country}
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
-                        pack of {cartItem.price[0].pack} x {cartItem.qty}
+                        pack of {cartItem.price[Number(cartItem.option)].pack} x {cartItem.qty}
                       </Typography>
                     </Grid>
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle1">
-                      € {cartItem.price[0].packPrice}
+                      € {cartItem.price[Number(cartItem.option)].packPrice * cartItem.qty}
                     </Typography>
                   </Grid>
                 </Grid>

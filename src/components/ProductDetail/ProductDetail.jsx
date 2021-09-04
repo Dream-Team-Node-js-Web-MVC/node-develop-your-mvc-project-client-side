@@ -55,9 +55,10 @@ function ProductDetail(products) {
   return (
     <div>
       <Navbar />
-      {products.products.map((product) => {
+      {products.products.map((product, index) => {
         if (products.match.params.id === product._id) {
           return (
+            <div key={index}>
                 <Grid container className={classes.root}>
                     <Box display="flex" justifyContent="flex-start">
                         <CardMedia className={classes.image} image={product.images[0]} title={product.title}/>
@@ -66,7 +67,7 @@ function ProductDetail(products) {
                                 {product.title}
                             </Typography>
                             <Typography  className={classes.description} gutterBottom>
-                                <p>{product.description}</p>
+                                {product.description}
                             </Typography>
                             <Typography variant="h6">
                               Price {product.price[pack].packPrice}€
@@ -95,6 +96,7 @@ function ProductDetail(products) {
                         </Box>
                     </Box>
                 </Grid>    
+                </div>
           );
         }
       })}
