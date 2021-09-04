@@ -1,48 +1,11 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/DeleteOutlined';
 import React, {useEffect, useState} from 'react';
 import useStyles from './styles';
 
 import axios from "axios";
-
-const columns = [
-    {
-    field: 'id',
-    headerName: 'Id',
-    hide: "true",
-    width: 200,
-    editable: false,
-    },
-    {
-    field: 'fullName',
-    headerName: 'Full Name',
-    width: 200,
-    editable: true
-    },
-    {
-    field: 'email',
-    headerName: 'Email',
-    width: 200,
-    editable: true,
-    },
-    {
-    field: 'password',
-    headerName: 'Password',
-    width: 200,
-    editable: true,
-    },
-    {
-    field: 'role',
-    headerName: 'Role',
-    type: 'singleSelect',
-    valueOptions: [
-        "employee",
-        "admin"
-    ],
-    width: 200,
-    editable: true,
-    }
-];
 
 function DashboardGrid() {
     const classes = useStyles();
@@ -76,10 +39,89 @@ function DashboardGrid() {
 
     const rows = dataRows();
 
+    const columns = [
+        {
+        field: 'id',
+        headerName: 'Id',
+        hide: "true",
+        width: 200,
+        editable: false,
+        },
+        {
+        field: 'fullName',
+        headerName: 'Full Name',
+        width: 200,
+        editable: true
+        },
+        {
+        field: 'email',
+        headerName: 'Email',
+        width: 200,
+        editable: true,
+        },
+        {
+        field: 'password',
+        headerName: 'Password',
+        width: 200,
+        editable: true,
+        valueFormatter: () => {
+            return "*********";
+        },
+        filterable: false,
+        sortable: false,
+        },
+        {
+        field: 'role',
+        headerName: 'Role',
+        type: 'singleSelect',
+        valueOptions: [
+            "employee",
+            "admin"
+        ],
+        width: 200,
+        editable: true,
+        },
+        {
+            field: 'actions',
+            headerName: 'Remove',
+            renderCell: function IconToolbar(props) {
+
+                const { id } = props;
+                
+                const remove = async () => {
+                    await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/workers/${id}`);
+                    const remainingWorkers = workers.filter(worker => worker._id !== id);
+                    setWorkers(remainingWorkers);
+                }
+            
+                return (
+                    <div>
+                    <IconButton
+                        color="inherit"
+                        size="small"
+                        aria-label="delete"
+                        onClick={remove}
+            
+                    >
+                    <DeleteIcon fontSize="small" />
+                    </IconButton>
+                    </div>
+                )
+            },
+            sortable: false,
+            width: 100,
+            filterable: false,
+            align: 'center',
+            disableColumnMenu: true,
+            disableReorder: true,
+        },
+    ];
+
     const handleEdit = async ({ id, field, value }) => {
         try {
             const modified = workers.filter(worker => worker._id === id);
             const patchedWorker = {...modified[0], [field]: value}
+            console.log(workers);
             await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/workers/${id}`, patchedWorker);
             setWorkers(workers.map((worker) => {
                 if(worker._id === id) {
@@ -93,15 +135,6 @@ function DashboardGrid() {
         }
     };
 
-    const selectedRows = (id) => {
-        console.log(id);
-        return id;
-    };
-    /* const remove = async (event, a, b, selectedRows) => {
-        console.log(selectedRows[0]);
-    } */
-
-
     return (
         <div className={classes.root}>
             <DataGrid
@@ -109,14 +142,15 @@ function DashboardGrid() {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
-            //checkboxSelection
-            //disableSelectionOnClick
             onCellEditCommit={handleEdit}
-            onSelectionModelChange={selectedRows}
+            disableSelectionOnClick
+            //componentsProps={{ IconToolbar: { workers: workers } }}
+            data={workers}
         />
+            <NavLink exact to="/newworker">
             <Button  className={classes.buttons}  variant="contained" color="primary">Create</Button>
-            <Button className={classes.buttons} variant="contained" color="secondary" /* onClick={remove} */ >Remove</Button>
-        </div>
+            </NavLink>
+            </div>
     )
 }
 
