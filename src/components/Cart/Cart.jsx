@@ -15,7 +15,7 @@ function Cart() {
 
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const localCart = JSON.parse(localStorage.getItem("cart"));
+  let localCart = JSON.parse(localStorage.getItem("cart"));
 
   useEffect(() => {
     getCartProducts();
@@ -36,18 +36,20 @@ function Cart() {
     }
   }, []);
 
-  const handleQuantity = async (action, index, _id, value) => {
-    const local_idIndex = localCart.findIndex((ele) => _id === ele._id);
+  const handleQuantity = async (action, _id, option, value) => {
+
+    const localIndex = localCart.findIndex((ele) => _id === ele._id && option === ele.option);
+
     if (action === "+") {
-      localCart[local_idIndex].qty = localCart[local_idIndex].qty + 1;
+      localCart[localIndex].qty += 1;
     }
     if (action === "-") {
-      if (localCart[local_idIndex].qty > 1) {
-        localCart[local_idIndex].qty = localCart[local_idIndex].qty - 1;
+      if (localCart[localIndex].qty > 1) {
+        localCart[localIndex].qty -= 1;
       }
     }
     if (action === "input") {
-      localCart[local_idIndex].qty = Number(value);
+      localCart[localIndex].qty = Number(value);
     }
 
     localStorage.setItem("cart", JSON.stringify(localCart));
@@ -67,7 +69,7 @@ function Cart() {
       var temp = 0;
       products.data.products.forEach((ele) => {
         localCart.forEach((ele2) => {
-          if (ele._id === ele2._id) temp += ele2.qty * ele.price[0].packPrice;
+          if (ele._id === ele2._id) temp += ele2.qty * ele.price[ele2.option].packPrice;
         });
       });
       temp = temp.toFixed(2);
@@ -78,11 +80,13 @@ function Cart() {
     }
   };
 
-  const handleRemove = (index) => {
-    localCart.splice(index, 1);
+  const handleRemove = (id, option) => {
+    localCart = localCart.filter(item => !(item._id === id && item.option === option));
     localStorage.setItem("cart", JSON.stringify(localCart));
+      
     getTotal();
   };
+
   return (
     <div>
       <Navbar />
@@ -119,37 +123,37 @@ function Cart() {
                               {cartItem.country}
                             </Typography>
                             <Typography variant="body2" gutterBottom>
-                              pack of {cartItem.price[0].pack}
+                              pack of {cartItem.price[Number(cartItem.option)].pack}
                             </Typography>
                           </Grid>
                           <Grid item>
                             <Button
                               variant="contained"
                               color="secondary"
-                              onClick={() => handleRemove(index)}>
+                              onClick={() => handleRemove(cartItem._id, cartItem.option)}>
                               Remove
                             </Button>
                           </Grid>
                         </Grid>
                         <Grid item>
                           <Typography variant="h6">
-                            € {cartItem.price[0].packPrice}
+                            € {cartItem.price[cartItem.option].packPrice}
                           </Typography>
                           <div>
-                            <Button onClick={() => handleQuantity("-", index, cartItem._id) }>
+                            <Button onClick={() => handleQuantity("-", cartItem._id, cartItem.option) }>
                               -
                             </Button>
                             <input onChange={(e) => handleQuantity(
                                   "input",
-                                  index,
                                   cartItem._id,
-                                  e.target.value,
+                                  cartItem.option,
+                                  e.target.value
                                 )}
                               type="number"
                               value={cartItem.qty}
                               style={{ width: "10%", height: "25px" }}
                             />
-                            <Button onClick={() => handleQuantity("+", index, cartItem._id)}>
+                            <Button onClick={() => handleQuantity("+", cartItem._id, cartItem.option)}>
                               +
                             </Button>
                           </div>
