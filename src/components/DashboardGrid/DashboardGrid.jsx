@@ -67,7 +67,6 @@ function IconToolbar(props) {
     const { id } = props;
     
     const remove = async () => {
-        console.log(props);
         await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/workers/${id}`);
         //const remainingWorkers = workers.filter(worker => worker._id === id);
         //setWorkers(remainingWorkers);
@@ -124,6 +123,7 @@ function DashboardGrid() {
         try {
             const modified = workers.filter(worker => worker._id === id);
             const patchedWorker = {...modified[0], [field]: value}
+            console.log(workers);
             await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/workers/${id}`, patchedWorker);
             setWorkers(workers.map((worker) => {
                 if(worker._id === id) {
