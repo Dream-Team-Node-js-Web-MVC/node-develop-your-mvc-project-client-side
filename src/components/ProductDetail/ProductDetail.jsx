@@ -13,24 +13,28 @@ import {
   Typography,
   IconButton,
   Button,
+  MenuItem,
+  TextField,
  } from "@material-ui/core";
 
 function ProductDetail(products) {
     const classes = useStyles();
     const qty = 1;
     const [cartLength, setCartLength] = useState(0);
+    const [ pack, setPack ] = useState(0);
 
     const addToCart = () => {
         const item = products.products.filter( product => product._id === products.match.params.id );
         console.log(item[0]._id);
 
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        let index = cart.findIndex((ele) => products.match.params.id === ele._id);
+        let index = cart.findIndex((ele) => products.match.params.id === ele._id && pack === ele.option);
 
         if (index === -1) {
           cart.push({
           qty,
           _id: item[0]._id,
+          option: pack,
         });
 
         console.log("Product ID: " + item[0]._id);
@@ -44,6 +48,10 @@ function ProductDetail(products) {
         setCartLength(cart.length);
     };
 
+    const handleChange = (e) => {
+        setPack(e.target.value);
+        console.log(pack);
+    };
   return (
     <div>
       <Navbar />
@@ -61,8 +69,23 @@ function ProductDetail(products) {
                                 <p>{product.description}</p>
                             </Typography>
                             <Typography variant="h6">
-                              Price {product.price[0].packPrice}€
+                              Price {product.price[pack].packPrice}€
                             </Typography>
+                                <TextField className={classes.input}
+                    select
+                    required
+                    // value={}
+                    onChange={handleChange}
+                    defaultValue="0"
+                    name="pack"
+                    label="Pack"
+                    variant="filled"
+                >
+                    <MenuItem value="0">6</MenuItem>
+                    <MenuItem value="1">12</MenuItem>
+                    <MenuItem value="2">24</MenuItem>
+                
+                </TextField>  
                             <Button className={classes.icon} onClick={addToCart}>
                               Add to cart
                             </Button>

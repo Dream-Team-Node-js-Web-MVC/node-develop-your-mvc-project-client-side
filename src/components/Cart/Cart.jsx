@@ -15,7 +15,7 @@ function Cart() {
 
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const localCart = JSON.parse(localStorage.getItem("cart"));
+  let localCart = JSON.parse(localStorage.getItem("cart"));
 
   useEffect(() => {
     getCartProducts();
@@ -67,7 +67,7 @@ function Cart() {
       var temp = 0;
       products.data.products.forEach((ele) => {
         localCart.forEach((ele2) => {
-          if (ele._id === ele2._id) temp += ele2.qty * ele.price[0].packPrice;
+          if (ele._id === ele2._id) temp += ele2.qty * ele.price[ele2.price].packPrice;
         });
       });
       temp = temp.toFixed(2);
@@ -79,10 +79,13 @@ function Cart() {
   };
 
   const handleRemove = (index) => {
-    localCart.splice(index, 1);
+    localCart = localCart.filter(item => item._id !== index );
     localStorage.setItem("cart", JSON.stringify(localCart));
+      
     getTotal();
   };
+  console.log(cart);
+  console.log(localCart);
   return (
     <div>
       <Navbar />
@@ -98,6 +101,7 @@ function Cart() {
                 </div>
               ) : (
                 cart.map((cartItem, index) => {
+                  console.log(cartItem, "cart item")
                   return (
                     <div key={index} className={classes.item}>
                       <Grid item>
@@ -119,21 +123,21 @@ function Cart() {
                               {cartItem.country}
                             </Typography>
                             <Typography variant="body2" gutterBottom>
-                              pack of {cartItem.price[0].pack}
+                              pack of {cartItem.price[Number(cartItem.option)].pack}
                             </Typography>
                           </Grid>
                           <Grid item>
                             <Button
                               variant="contained"
                               color="secondary"
-                              onClick={() => handleRemove(index)}>
+                              onClick={() => handleRemove(cartItem._id)}>
                               Remove
                             </Button>
                           </Grid>
                         </Grid>
                         <Grid item>
                           <Typography variant="h6">
-                            € {cartItem.price[0].packPrice}
+                            € {cartItem.price[cartItem.option].packPrice}
                           </Typography>
                           <div>
                             <Button onClick={() => handleQuantity("-", index, cartItem._id) }>
