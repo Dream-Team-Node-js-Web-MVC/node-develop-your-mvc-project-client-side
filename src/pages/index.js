@@ -5,3 +5,4 @@ export { default as WorkerForm } from "./WorkerForm/WorkerForm";
 export { default as Dashboard } from "./Dashboard/Dashboard";
 export { default as Shipping } from "./Shipping/Shipping";
 export { default as Payment } from "./Payment/Payment";
+export { default as ProductDashboard } from "./ProductDashboard/ProductDashboard";

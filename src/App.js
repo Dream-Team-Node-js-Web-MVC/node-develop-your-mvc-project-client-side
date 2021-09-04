@@ -8,6 +8,7 @@ import {
   WorkerForm,
   Shipping,
   Payment,
+  ProductDashboard,
 } from "./pages";
 
 //import getCart from "./utils/getCart";
@@ -117,6 +118,11 @@ const App = () => {
           path="/payment"
           exact
           render={(routeProps) => <Payment {...routeProps} />}
+        />
+        <Route
+          path="/productdashboard"
+          exact
+          render={(routeProps) => <ProductDashboard {...routeProps} />}
         />
         <Route
           path="/product/:id"

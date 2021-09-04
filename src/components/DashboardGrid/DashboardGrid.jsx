@@ -144,8 +144,6 @@ function DashboardGrid() {
             rowsPerPageOptions={[5]}
             onCellEditCommit={handleEdit}
             disableSelectionOnClick
-            //componentsProps={{ IconToolbar: { workers: workers } }}
-            data={workers}
         />
             <NavLink exact to="/newworker">
             <Button  className={classes.buttons}  variant="contained" color="primary">Create</Button>
