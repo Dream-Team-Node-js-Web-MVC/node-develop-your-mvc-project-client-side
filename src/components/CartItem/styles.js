@@ -28,7 +28,6 @@ export default makeStyles((theme) => ({
     width: "100%",
   },
   total: {
-    textAlign: "right",
     padding: "5px",
   },
 }));

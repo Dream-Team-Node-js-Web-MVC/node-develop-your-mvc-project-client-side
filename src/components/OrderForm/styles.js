@@ -7,20 +7,16 @@ export default makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
-    justifyContent: "center",
     margin: "10% 25% 1%",
-    border: "3px solid lightgrey",
     padding: "10px",
     width: "50%",
-    color: "dimgray",
-  },
-
-  container: {
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center",
+    color: "black",
   },
   button: {
-      textAlign: "center",
-  }
+
+  },
+  info: {
+    width: "100%",
+    display: "flex"
+  },
 }));
