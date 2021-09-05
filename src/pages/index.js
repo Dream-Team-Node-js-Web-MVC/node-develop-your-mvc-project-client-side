@@ -6,3 +6,6 @@ export { default as Dashboard } from "./Dashboard/Dashboard";
 export { default as Shipping } from "./Shipping/Shipping";
 export { default as Payment } from "./Payment/Payment";
 export { default as OrderSummary } from "./OrderSummary/OrderSummary";
+export { default as ProductDashboard } from "./ProductDashboard/ProductDashboard";
+export { default as NewProduct } from "./NewProduct/NewProduct";
+export { default as EditProduct } from "./EditProduct/EditProduct";
