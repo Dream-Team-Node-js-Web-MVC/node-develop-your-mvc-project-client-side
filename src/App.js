@@ -8,6 +8,9 @@ import {
   WorkerForm,
   Shipping,
   Payment,
+  ProductDashboard,
+  NewProduct,
+  EditProduct,
 } from "./pages";
 
 import axios from "axios";
@@ -77,6 +80,16 @@ const App = () => {
           render={(routeProps) => <Cart {...routeProps} />}
         />
         <Route
+          path="/editproduct/:id"
+          exact
+          render={(routeProps) => <EditProduct {...routeProps} />}
+        />
+        <Route
+          path="/newproduct"
+          exact
+          render={(routeProps) => <NewProduct {...routeProps} />}
+        />
+        <Route
           path="/newworker"
           exact
           render={(routeProps) => <WorkerForm {...routeProps} />}
@@ -104,6 +117,11 @@ const App = () => {
           render={(routeProps) => (
             <ProductDetail {...routeProps} products={products} />
           )}
+        />
+        <Route
+          path="/productdashboard"
+          exact
+          render={(routeProps) => <ProductDashboard {...routeProps} />}
         />
         <Route path="/" render={(routeProps) => <Home {...routeProps} />} />
       </Switch>

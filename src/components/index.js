@@ -7,3 +7,5 @@ export { default as DashboardGrid } from "./DashboardGrid/DashboardGrid";
 export { default as ProductDetail } from "./ProductDetail/ProductDetail";
 export { default as ShippingForm } from "./ShippingForm/ShippingForm";
 export { default as PaymentForm } from "./PaymentForm/PaymentForm";
+export { default as ProductsGrid } from "./ProductsGrid/ProductsGrid";
+export { default as ProductForm } from "./ProductForm/ProductForm";

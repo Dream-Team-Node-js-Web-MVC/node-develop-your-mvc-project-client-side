@@ -60,13 +60,26 @@ const Navbar = () => {
           {currentUser ?  (
               <Grid>
                 <Box display="flex">
-                  <NavLink exact to="newworker" style={{ textDecoration: 'none' }}>
+
+                <NavLink  to="/newproduct" style={{ textDecoration: 'none' }}>
+                    <Button className={classes.links} color="primary">
+                      New Product
+                    </Button>
+                </NavLink>
+
+                <NavLink exact to="/productDashboard" style={{ textDecoration: 'none' }}>
+                    <Button className={classes.links} color="primary">
+                      Products
+                    </Button>
+                </NavLink>
+
+                  <NavLink exact to="/newworker" style={{ textDecoration: 'none' }}>
                     <Button className={classes.links} color="primary">
                       New Employee
                     </Button>
                   </NavLink>
 
-                  <NavLink exact to="dashboard" style={{ textDecoration: 'none' }}>
+                  <NavLink exact to="/dashboard" style={{ textDecoration: 'none' }}>
                     <Button className={classes.links} color="primary">
                       Dashboard
                     </Button>
