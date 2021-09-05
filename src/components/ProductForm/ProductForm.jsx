@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import useStyles from './styles' 
-import { TextField, Grid, MenuItem,Button } from "@material-ui/core";
+import { TextField, Grid, MenuItem,Button, Typography } from "@material-ui/core";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -112,6 +112,9 @@ function ProductForm() {
     <form className={classes.root} onSubmit={handleSubmit}>
         <Grid container>
             <Grid item xs={12} sm={6} md={4} lg={3} >
+                <Typography className={classes.title} variant="h4" gutterBottom>
+                    New Porduct
+                </Typography>
                 <TextField className={classes.input}
                     required
                     onChange={handleChange}

@@ -3,10 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   root: {
     marginTop: "10%",
-    marginLeft: "25%",
+    marginLeft: "5%",
     "& .MuiTextField-root": {
       margin: theme.spacing(2),
-      width: "25ch",
+      width: "15ch",
     },
   },
   input: {
