@@ -92,7 +92,7 @@ function Cart() {
       <Navbar />
       <main className={classes.content}>
         <div className={classes.root}>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} elevation={0}>
             <Grid container spacing={4}>
               {cart.length === 0 ? (
                 <div className={classes.root}>

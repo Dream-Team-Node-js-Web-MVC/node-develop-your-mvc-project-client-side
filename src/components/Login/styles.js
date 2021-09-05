@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   root: {
     height: "100vh",
+    position: "fixed"
   },
   logo: {
     maxWidth: 300,
@@ -10,6 +11,7 @@ export default makeStyles((theme) => ({
   },
   beer_image: {
     maxWidth: 500,
+    marginBottom: "60px"
   },
   left_section: {
     background: "#FFBD00",
