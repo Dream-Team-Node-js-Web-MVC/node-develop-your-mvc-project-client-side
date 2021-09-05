@@ -8,13 +8,10 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "flex-start",
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
     padding: theme.spacing(10),
   },
   paper: {
-    padding: theme.spacing(2),
-    margin: "auto",
-    maxWidth: 500,
+    
   },
   image: {
     width: 128,
@@ -27,13 +24,19 @@ export default makeStyles((theme) => ({
     maxHeight: "100%",
   },
   item: {
-    padding: "5%",
+    padding: "2%",
+    backgroundColor: "#FFFFFF",
+    margin: "20px",
+    width: "400px",
+    boxShadow: "0px 0px 5px 0px rgba(217,213,217,1)",
+    borderRadius: "4px"
   },
   empty: {
     padding: "5%"
   },
   summary: {
     padding: "3%",
-    position: "sticky",
+    position: "fixed",
+    marginLeft: "70%"
   }
 }));
