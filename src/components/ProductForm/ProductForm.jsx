@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 function ProductForm() {
 
-    const [product, setProduct] = useState({title: "",description:"", country:"",sixprice:"",twelveprice:"",twentyfourprice:"",images:""});
+    const [product, setProduct] = useState({title: "",description:"", country:"",price:[{pack:6, packPrice:""},{pack:12, packPrice:""},{pack:24, packPrice:""}],images:"", stock:""});
     const history = useHistory();
 
     const edit = history.location.pathname.toLocaleLowerCase().includes("editproduct") ? true : false;
@@ -18,6 +18,7 @@ function ProductForm() {
         }
     }, [])
 
+
     const feedProduct = async () => {
         try {
             const productData = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`)
@@ -26,9 +27,22 @@ function ProductForm() {
                 title: productData.data.data.title,
                 description: productData.data.data.description,
                 country: productData.data.data.country,
-                sixprice: productData.data.data.price[0].packPrice,
-                twelveprice: productData.data.data.price[0].packPrice,
-                twentyfourprice: productData.data.data.price[0].packPrice,
+                price: [
+                    {
+                        pack: 6,
+                        packPrice: productData.data.data.price[0].packPrice
+                    },
+                    {
+                        pack: 12,
+                        packPrice: productData.data.data.price[1].packPrice
+                    },
+                    {
+                        pack: 24,
+                        packPrice: productData.data.data.price[2].packPrice
+                    }
+
+                ],
+                stock: productData.data.data.stock,
                 images:productData.data.data.images[0]
             });
         } catch (err) {
@@ -36,33 +50,60 @@ function ProductForm() {
         }
     }
 
-    const handleChange = (event) => {
-        setProduct({...product, [event.target.name]: event.target.value});
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        //postEmployee();
-        setProduct({title: "",description:"", country:"",sixprice:"",twelveprice:"",twentyfour:"",images:""})
-        console.log(product)
-        
-    }
-
-    const handleClear = () => {
-        setProduct({title: "",description:"", country:"",sixprice:"",twelveprice:"",twentyfour:"",images:""})
-    }
-
-    /* const postEmployee = async () => {
+    const postProduct = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/workers/`, newEmployee)
+            console.log(product, "product when submitting");
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/products/`, product)
             .then(() => {
-                history.push('/dashboard');
+                history.push('/productdashboard');
             });
 
         } catch (error) {
             
         }
-    } */
+    }
+
+    const patchProduct = async () => {
+        try {
+            await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`, product)
+            .then(() => {
+                history.push('/productdashboard');
+            });
+
+        } catch (error) {
+            
+        }
+    }
+
+    const handleChange = (event) => {
+        const sixPack = product.price[0].packPrice;
+        const twelvePack = product.price[1].packPrice;
+        const twentyfourPack = product.price[2].packPrice;
+
+        if(event.target.name === "sixprice") {
+            setProduct({...product, price: [{pack: 6, packPrice: event.target.value},{pack: 12, packPrice: twelvePack}, {pack: 24, packPrice: twentyfourPack},]});
+        } else if (event.target.name === "twelveprice"){
+            setProduct({...product, price: [{pack: 6, packPrice: sixPack},{pack: 12, packPrice: event.target.value}, {pack: 24, packPrice: twentyfourPack},]});
+        } else if (event.target.name === "twentyfourprice") {
+            setProduct({...product, price: [{pack: 6, packPrice: sixPack},{pack: 12, packPrice: twelvePack}, {pack: 24, packPrice:event.target.value},]});
+        } else {
+            setProduct({...product, [event.target.name]: event.target.value});
+        }
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (edit) {
+            patchProduct();
+        } else {
+            postProduct();
+        }
+        setProduct({title: "",description:"", country:"",price:[{pack:6, packPrice:""},{pack:12, packPrice:""},{pack:24, packPrice:""}],images:"", stock:""});
+    }
+
+    const handleClear = () => {
+        setProduct({title: "",description:"", country:"",price:[{pack:6, packPrice:""},{pack:12, packPrice:""},{pack:24, packPrice:""}],images:"", stock:""})
+    }
     
 
     const classes = useStyles();
@@ -105,7 +146,7 @@ function ProductForm() {
                 />
                 <TextField className={classes.input}
                     required
-                    value={product.sixprice}
+                    value={product.price[0].packPrice}
                     onChange={handleChange}
                     name="sixprice"
                     label="6 Pack Price"
@@ -113,7 +154,7 @@ function ProductForm() {
                 />
                 <TextField className={classes.input}
                     required
-                    value={product.twelveprice}
+                    value={product.price[1].packPrice}
                     onChange={handleChange}
                     name="twelveprice"
                     label="12 Pack Price"
@@ -121,10 +162,18 @@ function ProductForm() {
                 />
                 <TextField className={classes.input}
                     required
-                    value={product.twentyfourprice}
+                    value={product.price[2].packPrice}
                     onChange={handleChange}
                     name="twentyfourprice"
                     label="24 Pack Price"
+                    variant="filled"
+                />
+                <TextField className={classes.input}
+                    required
+                    value={product.stock}
+                    onChange={handleChange}
+                    name="stock"
+                    label="Stock"
                     variant="filled"
                 />
                 <TextField className={classes.input}

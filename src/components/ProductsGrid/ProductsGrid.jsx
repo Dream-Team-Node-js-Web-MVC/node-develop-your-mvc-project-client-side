@@ -154,8 +154,8 @@ function ProductsGrid() {
                 const { id } = props;
                 
                 const remove = async () => {
-                    await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/workers/${id}`);
-                    const remainingProducts = products.filter(worker => worker._id !== id);
+                    await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/products/${id}`);
+                    const remainingProducts = products.filter(product => product._id !== id);
                     setProducts(remainingProducts);
                 }
             
