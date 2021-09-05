@@ -2,6 +2,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   root: {
+    display: "flex",
+    flexDirection: "row",
     flexGrow: 1,
     margin: "20px",
   },
@@ -20,4 +22,9 @@ export default makeStyles((theme) => ({
     maxWidth: "100%",
     maxHeight: "100%",
   },
+  price: {
+    padding: "15%",
+    backgroundColor: "#f1f1f1",
+    width: "100%",
+  }
 }));

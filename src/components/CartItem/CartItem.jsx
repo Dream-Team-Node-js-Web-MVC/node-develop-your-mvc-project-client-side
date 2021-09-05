@@ -9,50 +9,40 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 function CartItem({ totalPrice, cart }) {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      {cart.map((cartItem, index) => {
-        console.log(cartItem, "cartItem")
-        return (
-          <div key={index}>
-            <Paper className={classes.paper}>
-              <Grid container spacing={2}>
-                <Grid item>
-                  <ButtonBase className={classes.image}>
-                    <img
-                      className={classes.img}
-                      alt="complex"
-                      src={cartItem.images[0]}
-                    />
-                  </ButtonBase>
+  <div className={classes.root}>
+    {cart.map((cartItem, index) => {
+      console.log(cartItem, "cartItem")
+      return (
+      <div key={index}>
+        <Paper className={classes.paper}>
+          <Grid container spacing={2}>
+            <Grid item>
+              <ButtonBase className={classes.image}>
+                <img className={classes.img}
+                alt="complex" src={cartItem.images[0]}/>
+                </ButtonBase>
                 </Grid>
                 <Grid item xs={12} sm container>
                   <Grid item xs container direction="column" spacing={2}>
                     <Grid item xs>
-                      <Typography gutterBottom variant="subtitle1">
-                        {cartItem.title}
-                      </Typography>
+                      <Typography gutterBottom variant="subtitle1">{cartItem.title}</Typography>
                       <Typography variant="body2" gutterBottom>
-                        Country: {cartItem.country}
-                      </Typography>
+                        Country: {cartItem.country}</Typography>
                       <Typography variant="body2" color="textSecondary">
-                        pack of {cartItem.price[Number(cartItem.option)].pack} x {cartItem.qty}
-                      </Typography>
+                        pack of {cartItem.price[Number(cartItem.option)].pack} x {cartItem.qty}</Typography>
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <Typography variant="subtitle1">
-                      € {cartItem.price[Number(cartItem.option)].packPrice * cartItem.qty}
-                    </Typography>
-                  </Grid>
+                  <Typography variant="subtitle1">€ {cartItem.price[Number(cartItem.option)].packPrice * cartItem.qty}</Typography>
                 </Grid>
               </Grid>
-            </Paper>
-          </div>
-        );
-      })}
-      <Typography variant="h5">Total: € {totalPrice}</Typography>
-    </div>
-  );
+            </Grid>
+          </Paper></div>);})}
+          <Typography variant="h5">
+            Total: € {totalPrice}
+          </Typography>
+  </div>);
+
 }
 
 export default CartItem;

@@ -4,8 +4,23 @@ import axios from "axios";
 import CartItem from "../CartItem/CartItem";
 import getCart from "../../utils/getCart";
 
+import {
+  CardHolder,
+  CardNumber,
+  CardSecurityCode,
+  ValidThruMonth,
+  ValidThruYear,
+} from "reactjs-credit-card/form";
+import Card from "reactjs-credit-card/card";
+import {
+  Grid,
+  Box
+} from "@material-ui/core";
+import useStyles from "./styles";
 
 function PaymentForm({ totalPrice, cart, products }) {
+    const classes = useStyles();
+
   console.log(products, "pay form")
   //! You can get address information from localStorage
   console.log(JSON.parse(localStorage.getItem("order-info")), "Order");
@@ -48,14 +63,36 @@ function PaymentForm({ totalPrice, cart, products }) {
       console.log("error = ", error);
     }
   };
+
+  
   return (
-    <div>
-      <div>
-        <h1>Payment</h1>
-      </div>
-      <CartItem totalPrice={totalPrice} cart={cart} />
-      <button onClick={makeOrder}>finish</button>
-    </div>
+    <Grid container display="row" className={classes.container}>
+      <Grid item>
+        <Card />
+        <form>
+          <Box display="column">
+            <CardNumber placeholder="Card Number" className={classes.input}/>
+          </Box>
+
+          <Box display="column">
+            <CardHolder placeholder="Card Holder" className={classes.input}/>
+          </Box>
+
+          <Box>
+            <ValidThruMonth className={classes.date}/>
+            <ValidThruYear className={classes.date} style={{ marginLeft: '10px' }}/>
+            <CardSecurityCode placeholder="CVV" className="input-text semi" className={classes.cvv}/>
+          </Box>
+
+          <Box>
+            <button className={classes.submit} onClick={makeOrder}>Confirm</button>
+          </Box>
+        </form>
+      </Grid>
+      <Grid item>
+        <CartItem totalPrice={totalPrice} cart={cart} />
+      </Grid>
+    </Grid>
   );
 }
 
