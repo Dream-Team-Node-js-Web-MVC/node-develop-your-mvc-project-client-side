@@ -38,7 +38,7 @@ function CartItem({ totalPrice, cart }) {
               </Grid>
             </Grid>
           </Paper></div>);})}
-          <Typography variant="h5">
+          <Typography variant="h5" className={classes.total}>
             Total: € {totalPrice}
           </Typography>
   </div>);

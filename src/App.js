@@ -8,6 +8,7 @@ import {
   WorkerForm,
   Shipping,
   Payment,
+  OrderSummary,
 } from "./pages";
 
 import axios from "axios";
@@ -104,6 +105,11 @@ const App = () => {
           render={(routeProps) => (
             <ProductDetail {...routeProps} products={products} />
           )}
+        />
+        <Route
+          path="/order-summary"
+          exact
+          render={(routeProps) => <OrderSummary {...routeProps} />}
         />
         <Route path="/" render={(routeProps) => <Home {...routeProps} />} />
       </Switch>
