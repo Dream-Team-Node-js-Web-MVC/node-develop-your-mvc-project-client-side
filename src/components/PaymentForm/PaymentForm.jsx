@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { NavLink } from "react-router-dom"
 import axios from "axios";
-
+import "./Payment.css";
 import CartItem from "../CartItem/CartItem";
 import getCart from "../../utils/getCart";
 
@@ -77,7 +77,7 @@ function PaymentForm({ totalPrice, cart, products }) {
   return (
     <Grid container display="row" className={classes.container}>
       <Grid item>
-        <Card />
+        <Card fixClass="fix-new" cardClass="card-new" />
         <form onSubmit={handleSubmit}>
           <Box display="column">
             <CardNumber placeholder="Card Number" name="cardNumber" className={classes.input} onChange={handleChange} />
@@ -94,7 +94,7 @@ function PaymentForm({ totalPrice, cart, products }) {
           </Box>
 
           <Box className={classes.button}>
-            <NavLink to={{ pathname: "/order-summary", state: { cart, totalPrice, products, payInfo } }}>
+            <NavLink to={{ pathname: "/order-summary", state: { cart, totalPrice, products, payInfo } }} style={{ textDecoration: 'none' }}>
             <Button variant="contained" color="primary" className={classes.submit} onClick={makeOrder}>Confirm</Button>
           </NavLink>
           </Box>

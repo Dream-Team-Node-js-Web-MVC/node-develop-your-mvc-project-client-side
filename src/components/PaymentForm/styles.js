@@ -5,7 +5,6 @@ export default makeStyles((theme) => ({
     marginTop: "10%",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
   },
   input: {
     padding: "2%",

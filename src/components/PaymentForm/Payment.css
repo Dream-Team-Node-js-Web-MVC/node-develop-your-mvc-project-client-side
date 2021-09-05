@@ -1,0 +1,37 @@
+.card-new {
+  /*background: #252525 !important;*/
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e) !important;
+}
+
+.card-number {
+  padding: 0 !important;
+  display: block !important;
+}
+
+.card-bottom {
+  padding: 0 4em !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
+.card-front-face {
+  margin-top: 4.1em !important;
+}
+
+.makeStyles-button-17 {
+  text-align: right !important;
+}
+
+.makeStyles-root-22 {
+  margin-top: 0px !important;
+  margin-left: 20px !important;
+}
+
+.valid-thru {
+  justify-content: flex-start !important;
+}
+
+.card-back-face {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
