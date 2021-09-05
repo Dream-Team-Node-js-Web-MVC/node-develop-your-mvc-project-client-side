@@ -1,6 +1,6 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { IconButton } from "@material-ui/core";
-import { useHistory } from 'react-router-dom';
+import { IconButton, Button } from "@material-ui/core";
+import { useHistory, NavLink } from 'react-router-dom';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteIcon from '@material-ui/icons/DeleteOutlined';
 import React, {useEffect, useState} from 'react';
@@ -33,7 +33,6 @@ function ProductsGrid() {
 
     const dataRows = function () {
         let rows = [];
-        console.log(products);
         products.forEach((product) => {
         let row = {
             id: product._id,
@@ -43,7 +42,7 @@ function ProductsGrid() {
             sixprice: product.price[0].packPrice,
             twelveprice: product.price[1].packPrice,
             twentyfourprice: product.price[2].packPrice,
-            images: product.images.toString,
+            images: product.images,
         };
         rows.push(row);
         });
@@ -64,49 +63,59 @@ function ProductsGrid() {
         field: 'title',
         headerName: 'Title',
         width: 150,
-        editable: true
+        editable: false,
+        filterable: true,
+        sortable: true,
         },
         {
         field: 'description',
         headerName: 'Description',
         width: 200,
-        editable: true,
+        editable: false,
         },
         {
         field: 'country',
         headerName: 'Country',
         width: 150,
-        editable: true,
+        editable: false,
         filterable: true,
         sortable: true,
         },
         {
         field: 'sixprice',
         headerName: '6 Pack price',
-        width: 200,
-        editable: true,
+        width: 130,
+        editable: false,
         valueFormatter: (item) => {
-            const finalNum = Number(item);
+            const finalNum = Number(item.row.sixprice)+"€";
             return finalNum;
         },
         },
         {
             field: 'twelveprice',
             headerName: '12 Pack price',
-            width: 200,
-            editable: true,
+            width: 130,
+            editable: false,
+            valueFormatter: (item) => {
+                const finalNum = Number(item.row.twelveprice)+"€";
+                return finalNum;
+            },
         },
         {
             field: 'twentyfourprice',
             headerName: '24 Pack price',
-            width: 200,
-            editable: true,
+            width: 130,
+            editable: false,
+            valueFormatter: (item) => {
+                const finalNum = Number(item.row.twentyfourprice)+"€";
+                return finalNum;
+            },
         },
         {
             field: 'images',
             headerName: 'Images',
             width: 200,
-            editable: true,
+            editable: false,
         },
         {
             field: 'edit',
@@ -182,6 +191,9 @@ function ProductsGrid() {
             rowsPerPageOptions={[5]}
             disableSelectionOnClick
         />
+            <NavLink exact to="/newproduct">
+            <Button  className={classes.buttons}  variant="contained" color="primary">Create</Button>
+            </NavLink>
             </div>
     )
 }
