@@ -2,11 +2,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   root: {
-    marginTop: "10%",
+    marginTop: "8%",
     marginLeft: "5%",
     "& .MuiTextField-root": {
-      margin: theme.spacing(2),
-      width: "15ch",
+      marginTop: "10px",
+      width: "10ch",
       backgroundSize: "auto !important"
     },
   },
@@ -14,7 +14,8 @@ export default makeStyles((theme) => ({
     fontSize: "5em",
   },
   buttons: {
-    margin: theme.spacing(2),
+    marginTop: "20px",
+    marginRight: "20px",
     height: "50px",
     width: "80px",
   },
