@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import useStyles from './styles' 
 import { TextField, Grid, MenuItem,Button } from "@material-ui/core";
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Form() {
 
     const [newEmployee, setNewEmployee] = useState({fullName: "",email:"", password:"",role:"",profileImage:""});
+    const history = useHistory();
 
     const handleChange = (event) => {
         setNewEmployee({...newEmployee, [event.target.name]: event.target.value});
@@ -26,9 +27,10 @@ function Form() {
 
     const postEmployee = async () => {
         try {
-             const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/workers/`, newEmployee)
-
-             console.log(response)
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/workers/`, newEmployee)
+            .then(() => {
+                history.push('/dashboard');
+            });
 
         } catch (error) {
             
@@ -85,9 +87,7 @@ function Form() {
                     <MenuItem value="admin">Admin</MenuItem>
                     <MenuItem value="employee">Employee</MenuItem>
                 </TextField>  
-                <NavLink exact to="/dashboard">
                     <Button type="submit" className={classes.buttons}   variant="contained" color="primary" >Submit</Button>
-                </NavLink>
                     <Button className={classes.buttons} variant="contained" color="secondary" onClick={handleClear} >Clear</Button>
             </Grid>
         </Grid>

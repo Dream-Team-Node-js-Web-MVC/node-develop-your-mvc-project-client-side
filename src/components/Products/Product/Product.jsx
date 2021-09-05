@@ -21,12 +21,13 @@ const Product = (product) => {
   const [cartLength, setCartLength] = useState(0);
   const addToCart = () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let index = cart.findIndex((ele) => product.product._id === ele._id);
-    console.log(index);
+    let index = cart.findIndex((ele) => product.product._id === ele._id && 0 === ele.option);
+
     if (index === -1) {
       cart.push({
         qty,
         _id: product.product._id,
+        option: 0,
       });
       setCartLength(cart.length);
     } else {
