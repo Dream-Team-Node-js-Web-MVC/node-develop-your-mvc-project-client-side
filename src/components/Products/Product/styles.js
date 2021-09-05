@@ -1,11 +1,13 @@
 import { yellow } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Image from './cover-5.png';
 export default makeStyles(() => ({
   root: {
     maxWidth: "100%",
     minWidth: "70%",
-    background: "transparent"
+    backgroundColor: "#FFFFF",
+    backgroundSize: "70%",
+    backgroundImage: `url(${Image})`
   },
   name: {
     marginTop: "30px",
