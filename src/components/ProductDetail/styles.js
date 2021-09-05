@@ -4,7 +4,7 @@ export default makeStyles(() => ({
   root: {
     padding: "5%",
     "& .MuiCardMedia-root": {
-      backgroundSize: "200px 600px !important"
+      backgroundSize: "200px 700px !important"
     },
   },
   section: {
