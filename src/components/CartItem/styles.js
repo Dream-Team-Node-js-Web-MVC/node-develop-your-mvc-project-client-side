@@ -3,13 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   root: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     flexGrow: 1,
     margin: "20px",
   },
   paper: {
     padding: theme.spacing(2),
-    margin: "auto",
+    margin: "1px",
     maxWidth: 500,
   },
   image: {
@@ -26,5 +26,9 @@ export default makeStyles((theme) => ({
     padding: "15%",
     backgroundColor: "#f1f1f1",
     width: "100%",
-  }
+  },
+  total: {
+    textAlign: "right",
+    padding: "5px",
+  },
 }));

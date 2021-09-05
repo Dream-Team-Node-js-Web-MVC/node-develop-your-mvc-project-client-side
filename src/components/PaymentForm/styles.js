@@ -5,24 +5,27 @@ export default makeStyles((theme) => ({
     marginTop: "10%",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   input: {
-      padding: "2%",
-      width: "95%",
-      marginTop: "10px"
+    padding: "2%",
+    width: "95%",
+    marginTop: "10px",
   },
   date: {
-      padding: "2%",
-      marginTop: "10px",
+    padding: "2%",
+    marginTop: "10px",
   },
   cvv: {
-      padding: "2%",
-      width: "30%",
-      marginLeft: "10px"
+    padding: "2%",
+    width: "30%",
+    marginLeft: "10px",
   },
   submit: {
-      padding: "2%",
-      marginTop: "10px"
+    padding: "2%",
+    marginTop: "10px",
+  },
+  button: {
+    textAlign: "center",
   },
 }));

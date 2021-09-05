@@ -8,6 +8,7 @@ import {
   WorkerForm,
   Shipping,
   Payment,
+  OrderSummary,
   ProductDashboard,
   NewProduct,
   EditProduct,
@@ -117,6 +118,11 @@ const App = () => {
           render={(routeProps) => (
             <ProductDetail {...routeProps} products={products} />
           )}
+        />
+        <Route
+          path="/order-summary"
+          exact
+          render={(routeProps) => <OrderSummary {...routeProps} />}
         />
         <Route
           path="/productdashboard"

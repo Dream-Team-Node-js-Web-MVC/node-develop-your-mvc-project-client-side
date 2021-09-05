@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import { NavLink } from "react-router-dom"
 import axios from "axios";
 
 import CartItem from "../CartItem/CartItem";
@@ -14,12 +15,14 @@ import {
 import Card from "reactjs-credit-card/card";
 import {
   Grid,
-  Box
+  Box,
+  Button,
 } from "@material-ui/core";
 import useStyles from "./styles";
 
 function PaymentForm({ totalPrice, cart, products }) {
     const classes = useStyles();
+    const [payInfo, setPayInfo] = useState({});
 
   console.log(products, "pay form")
   //! You can get address information from localStorage
@@ -27,7 +30,6 @@ function PaymentForm({ totalPrice, cart, products }) {
   const makeOrder = async () => {
     const localCart = JSON.parse(localStorage.getItem("cart"));
     const orderInfo = JSON.parse(localStorage.getItem("order-info"));
-
     try {
       await getCart(localCart);
       console.log(await getCart(localCart));
@@ -43,6 +45,7 @@ function PaymentForm({ totalPrice, cart, products }) {
         handleEdit(cartItem._id, cartItem.qty, cartItem.option, "stock"),
       );
       console.log("------------------>", order);
+
     } catch (error) {
       console.log(error, "error");
     }
@@ -64,28 +67,36 @@ function PaymentForm({ totalPrice, cart, products }) {
     }
   };
 
-  
+  const handleChange = (event) => {
+    setPayInfo({ ...payInfo, [event.target.name]: event.target.value });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setPayInfo({ ...payInfo, [event.target.name]: event.target.value });
+  };
   return (
     <Grid container display="row" className={classes.container}>
       <Grid item>
         <Card />
-        <form>
+        <form onSubmit={handleSubmit}>
           <Box display="column">
-            <CardNumber placeholder="Card Number" className={classes.input}/>
+            <CardNumber placeholder="Card Number" name="cardNumber" className={classes.input} onChange={handleChange} />
           </Box>
 
           <Box display="column">
-            <CardHolder placeholder="Card Holder" className={classes.input}/>
+            <CardHolder placeholder="Card Holder" name="cardHolder" className={classes.input} onChange={handleChange}/>
           </Box>
 
           <Box>
-            <ValidThruMonth className={classes.date}/>
-            <ValidThruYear className={classes.date} style={{ marginLeft: '10px' }}/>
-            <CardSecurityCode placeholder="CVV" className="input-text semi" className={classes.cvv}/>
+            <ValidThruMonth className={classes.date} name="month" onChange={handleChange} />
+            <ValidThruYear className={classes.date} name="year" style={{ marginLeft: '10px' }} onChange={handleChange}/>
+            <CardSecurityCode placeholder="CVV" className="input-text semi" name="cvv" className={classes.cvv} onChange={handleChange}/>
           </Box>
 
-          <Box>
-            <button className={classes.submit} onClick={makeOrder}>Confirm</button>
+          <Box className={classes.button}>
+            <NavLink to={{ pathname: "/order-summary", state: { cart, totalPrice, products, payInfo } }}>
+            <Button variant="contained" color="primary" className={classes.submit} onClick={makeOrder}>Confirm</Button>
+          </NavLink>
           </Box>
         </form>
       </Grid>
