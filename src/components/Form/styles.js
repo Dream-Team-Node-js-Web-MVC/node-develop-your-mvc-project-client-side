@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
     "& .MuiTextField-root": {
       margin: theme.spacing(2),
       width: "15ch",
+      backgroundSize: "auto !important"
     },
   },
   input: {

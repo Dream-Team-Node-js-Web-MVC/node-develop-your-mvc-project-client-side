@@ -3,17 +3,19 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles(() => ({
   root: {
     padding: "5%",
-    position: "fixed",
+    "& .MuiCardMedia-root": {
+      backgroundSize: "200px 600px !important"
+    },
   },
   section: {
     display: "flex",
     justifyContent: "space-between",
   },
   image: {
-    height: "0%",
-    width: "100%",
+    height: "80%",
+    width: "80%",
     marginTop: "20px",
-    paddingTop: "56.25%", //16:9
+    paddingTop: "16.25%", //16:9
   },
   title: {
     marginTop: "100px",
@@ -33,4 +35,8 @@ export default makeStyles(() => ({
     backgroundColor: "#313131",
     color: "#FFFFFF",
   },
+  input: {
+    width: "50%",
+    marginTop: "20px",
+  }
 }));

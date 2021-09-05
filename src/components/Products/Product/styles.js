@@ -19,7 +19,7 @@ export default makeStyles(() => ({
     color: "#FFFFFF"
   },
   media: {
-    height: "85px",
+    height: "100px",
     width: "85px",
     justifyContent: "flex-start",
     zIndex: 1000,
